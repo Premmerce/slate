@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Premmerce</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;php&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,10 +211,7 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="php">php</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -222,27 +219,86 @@
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+            <a href="#premmerce" class="toc-h1 toc-link" data-title="Premmerce">Premmerce</a>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#wordpress" class="toc-h1 toc-link" data-title="Wordpress">Wordpress</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Kittens">Get All Kittens</a>
+                    <a href="#create-plugin" class="toc-h2 toc-link" data-title="Wordpress">Create plugin</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Kittens">Get a Specific Kitten</a>
+                    <a href="#activation-deactivation-uninstall" class="toc-h2 toc-link" data-title="Wordpress">Activation/Deactivation/Uninstall</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Kittens">Delete a Specific Kitten</a>
+                    <a href="#administration-menu" class="toc-h2 toc-link" data-title="Wordpress">Administration menu</a>
+                  </li>
+                  <li>
+                    <a href="#validation-and-security" class="toc-h2 toc-link" data-title="Wordpress">Validation and Security</a>
+                  </li>
+                  <li>
+                    <a href="#internationalization" class="toc-h2 toc-link" data-title="Wordpress">Internationalization</a>
+                  </li>
+                  <li>
+                    <a href="#roles-and-capabilities" class="toc-h2 toc-link" data-title="Wordpress">Roles and Capabilities</a>
+                  </li>
+                  <li>
+                    <a href="#hooks" class="toc-h2 toc-link" data-title="Wordpress">Hooks</a>
+                  </li>
+                  <li>
+                    <a href="#actions" class="toc-h2 toc-link" data-title="Wordpress">Actions</a>
+                  </li>
+                  <li>
+                    <a href="#filters" class="toc-h2 toc-link" data-title="Wordpress">Filters</a>
+                  </li>
+                  <li>
+                    <a href="#filters-reference" class="toc-h2 toc-link" data-title="Wordpress">Filters Reference</a>
+                  </li>
+                  <li>
+                    <a href="#database-structure" class="toc-h2 toc-link" data-title="Wordpress">Database structure</a>
+                  </li>
+                  <li>
+                    <a href="#metadata" class="toc-h2 toc-link" data-title="Wordpress">Metadata</a>
+                  </li>
+                  <li>
+                    <a href="#settings" class="toc-h2 toc-link" data-title="Wordpress">Settings</a>
+                  </li>
+                  <li>
+                    <a href="#shortcodes" class="toc-h2 toc-link" data-title="Wordpress">Shortcodes</a>
+                  </li>
+                  <li>
+                    <a href="#taxonomies" class="toc-h2 toc-link" data-title="Wordpress">Taxonomies</a>
+                  </li>
+                  <li>
+                    <a href="#users" class="toc-h2 toc-link" data-title="Wordpress">Users</a>
+                  </li>
+                  <li>
+                    <a href="#widgets" class="toc-h2 toc-link" data-title="Wordpress">Widgets</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#woocommerce" class="toc-h1 toc-link" data-title="Woocommerce">Woocommerce</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#hooks" class="toc-h2 toc-link" data-title="Woocommerce">Hooks</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#premmerce-dev-tools" class="toc-h1 toc-link" data-title="Premmerce Dev Tools">Premmerce Dev Tools</a>
+          </li>
+          <li>
+            <a href="#premmerce-woocommerce-brands" class="toc-h1 toc-link" data-title="Premmerce WooCommerce Brands">Premmerce WooCommerce Brands</a>
+          </li>
+          <li>
+            <a href="#woocommerce-customers-manager" class="toc-h1 toc-link" data-title="WooCommerce Customers Manager">WooCommerce Customers Manager</a>
+          </li>
+          <li>
+            <a href="#woocommerce-permalink-manager" class="toc-h1 toc-link" data-title="WooCommerce Permalink Manager">WooCommerce Permalink Manager</a>
+          </li>
+          <li>
+            <a href="#woocommerce-seo-addon" class="toc-h1 toc-link" data-title="WooCommerce SEO Addon">WooCommerce SEO Addon</a>
           </li>
       </div>
         <ul class="toc-footer">
@@ -253,249 +309,539 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+        <h1 id='premmerce'>Premmerce</h1>
+<p>Welcome to the Premmerce developers documentation!</p>
+<h1 id='wordpress'>Wordpress</h1>
+<p><a href="https://developer.wordpress.org/plugins/intro/">Документація для розробників Wordpress</a></p>
+<h2 id='create-plugin'>Create plugin</h2>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Заголовки в файлі плагіну.</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<pre class="highlight php tab-php"><code>/**
+ * Plugin Name: Name
+ * Plugin URI: http://сторінка-плагіну
+ * Description: Short description
+ * Version: Версія, наприклад: 1.0
+ * Author: Автор
+ * Author URI: http://сторінка-автора
+ * License:      GPL2
+ * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:  domain-name
+ * Domain Path:  /languages
+ */
+</code></pre>
+<p><a href="https://developer.wordpress.org/plugins/">Повна документація</a><br>
+Для створення плагіну достатньо створити php файл в папці 
+/wp-content/plugins. Файл повинен містити інформаційний заголовок, 
+якщо плагін потребує більше файлів створюємо папку в яку кладемо головний файл плагіну.
+<a href="https://developer.wordpress.org/plugins/the-basics/header-requirements/">Повна документація по заголовкам</a></p>
+<h2 id='activation-deactivation-uninstall'>Activation/Deactivation/Uninstall</h2>
+<blockquote>
+<p>Зареєструвати хук активації</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nx">register_activation_hook</span><span class="p">(</span> <span class="k">__FILE__</span><span class="p">,</span> <span class="s1">'callback'</span> <span class="p">);</span>
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Зареєструвати хук деактивації</p>
 </blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nx">register_deactivation_hook</span><span class="p">(</span> <span class="k">__FILE__</span><span class="p">,</span> <span class="s1">'callback'</span> <span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Зареєструвати хук видалення</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nx">register_uninstall_hook</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">,</span> <span class="s1">'callback'</span><span class="p">);</span>
+</code></pre>
+<p>Для того щоб виконати певні операції при встановленні/деактивації/видаленні плагіну використовуються хуки.
+Таким чином можна зареєструвати колбек, який буде викликатись при цих операціях.
+Це портібно для підготвоки оточення для плагіну(створення таблиць в БД, початкова конфігурація), 
+та очистки при деактивації чи видаленні плагіну.</p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<ul>
+<li><code>register_activation_hook</code> викликається при встановленні плагіну<br></li>
+<li><code>register_deactivation_hook</code> викликається при деактивації плагіну<br></li>
+<li><code>register_uninstall_hook</code> викликається при видаленні плагіну<br></li>
+</ul>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+<aside class="warning">
+Через <code>register_uninstall_hook</code> можна зареєструвати тільки функцію або статичний метод класу
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>Різниця між uninstall та deactivation та сценарії:</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<table><thead>
+<tr>
+<th>Scenario</th>
+<th>Deactivation</th>
+<th>Uninstall</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Видалити кеш тимчасові файли</td>
+<td>так</td>
+<td>ні</td>
+</tr>
+<tr>
+<td>Видалити пермалінки</td>
+<td>так</td>
+<td>ні</td>
+</tr>
+<tr>
+<td>Видалити налаштування</td>
+<td>ні</td>
+<td>так</td>
+</tr>
+<tr>
+<td>Видалити таблиці з БД</td>
+<td>ні</td>
+<td>так</td>
+</tr>
+</tbody></table>
+<h2 id='administration-menu'>Administration menu</h2>
+<blockquote>
+<p>Usage</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'admin_menu'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">add_menu_page</span><span class="p">(</span> <span class="s1">'Plugin page title'</span><span class="p">,</span>
+        <span class="s1">'Plugin menu title'</span><span class="p">,</span>
+        <span class="s1">'manage_options'</span><span class="p">,</span>
+        <span class="s1">'plugin-slug'</span><span class="p">,</span>
+        <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="s1">'&lt;h1&gt;My plugin page&lt;/h1&gt;'</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="s1">'dashicons-dashboard'</span> <span class="p">);</span>
+<span class="p">}</span> <span class="p">);</span>
+</code></pre>
+<p>Функції для управління адміністративним меню.</p>
+<h3 id='add_menu_page'>add_menu_page</h3>
+<p>Додати сторінку до верхнього рівня меню</p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+<p><code>add_menu_page($page_title,  
+     $menu_title,  
+     $capability,  
+     $menu_slug,   
+     $function,  
+     $icon_url,  
+     $position  
+)</code></p>
+
+<p><em>Параметри:</em><br>
+<code>string $page_title</code> - title сторінки<br>
+<code>string $menu_title</code> - назва меню<br>
+<code>string $capability</code> - права доступу до сторінки<br>
+<code>string $menu_slug</code> - slug сторінки
+<code>callable $function</code> - функція яка відображає контент сторінку<br>
+<code>string $icon_url</code> - dashicon або посилання на зображення, за замовчуванням іконки немає
+<code>int $position</code> -  позиція елементу меню</p>
+<h3 id='add_submenu_page'>add_submenu_page</h3>
+<p>Додати підменю</p>
+
+<p><code>add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function)</code></p>
+
+<p><em>Параметри:</em><br>
+<code>string $parent_slug</code> - slug пункту меню до якого добавити<br>
+<code>string $page_title</code> - title сторінки<br>
+<code>string $menu_title</code> - назва меню<br>
+<code>string $capability</code> - права доступу до сторінки<br>
+<code>string $menu_slug</code> - slug сторінки
+<code>callable $function</code> - функція яка відображає контент сторінку  </p>
+<h3 id='remove_menu_page'>remove_menu_page</h3>
+<p>Видалити пункт меню  рівня.</p>
+
+<p><code>remove_menu_page(string $menu_slug)</code></p>
+
+<p><em>Параметри:</em><br>
+<code>string $menu_slug</code> - slug сторінки </p>
+<h2 id='validation-and-security'>Validation and Security</h2><h3 id='php-functions'>PHP functions</h3>
+<ul>
+<li><code>isset()</code> та <code>empty()</code> перевірка чи змінна існує і не порожня</li>
+<li><code>mb_strlen()</code> або <code>strlen()</code> для перевірки довжини строки</li>
+<li><code>preg_match()</code>, <code>strpos()</code> для перевірки чи підстрока в строці</li>
+<li><code>count()</code> перевірка кількості елементів в масиві</li>
+<li><code>in_array()</code> перевірка чи елемент в масиві</li>
+</ul>
+<h3 id='wordpress-functions'>WordPress functions</h3>
+<ul>
+<li><code>is_email()</code> перевірка чи email валідний</li>
+<li><code>term_exists()</code> - перевірка чи існує тег категорія чи інший терм</li>
+<li><code>username_exists()</code> - перевірка чи існує користувач з заданим іменем</li>
+<li><code>validate_file()</code> перевірка чи це реальний шлях(існування файлу не перевіряється)</li>
+</ul>
+<h3 id='securing-input'>Securing input</h3>
+<p>Процес очистки вхідних даних, потрібен коли невідомо які дані можуть прийти, 
+або ви не хочете обмежувати користувача валідацією. Для цього в вордпресі існує ряд функцій.</p>
+
+<p><code>sanitize_email(string $email)</code> - очистка недопустимих символів в email.</p>
+
+<p><code>sanitize_file_name(string  $name)</code> - Очистка недопустимих символів в імені файлу.</p>
+
+<p><code>sanitize_html_class(string $class, string $fallback)</code> - Очистка недопустимих символів в html класі</p>
+
+<p><code>sanitize_key($key)</code> - Приведення до нижнього регістру та очистка недопустимих символів в ключі масиву</p>
+
+<p><code>sanitize_mime_type(string $mime_type)</code> - Очистка недопустимих символів mime тип</p>
+
+<p><code>sanitize_text_field(string $str)</code> - 
+Очистка строки введеної користувачем або з БД</p>
+
+<p><code>sanitize_title( $title, $fallback_title, $context )</code> - 
+Очистка недопустимих символів в назві</p>
+
+<p><code>sanitize_title_for_query(string $title)</code> - 
+очистка недопустимих символів для запиту в БД  </p>
+
+<p><code>sanitize_title_with_dashes(string $title, string $unused, string(&#39;display&#39;|&#39;save&#39;) $context)</code> - 
+заміна пробілів на символ <code>-</code> </p>
+
+<p><code>sanitize_user(string $username, boolean $strict)</code> - 
+очистка недопустимих символів в імені користувача  </p>
+
+<p><code>esc url(string $url, array $protocols,string  $_context)</code> - 
+очистка недопустимих символів  </p>
+
+<p><code>esc_url_raw(string $url, array $protocols)</code> - 
+очистка недопустимих символів в URL, на відміну від escape_url, не замінює символи для виводу, 
+вихідний URL безпечний для БД, редіректів та HTTP запитів  </p>
+
+<p><code>wp_filter_post_kses($data)</code> - 
+очистка недопустимих HTML тегів для контенту поста  </p>
+
+<p><code>wp_filter_nohtml_kses($data)</code> - 
+очистка всіх HTML тегів </p>
+<h3 id='securing-output'>Securing output</h3>
+<p>Очистка виводу. Для цього в вордпресі існує ряд функцій.</p>
+
+<ul>
+<li><code>esc_html()</code> - Для виводу даних в шаблоні</li>
+<li><code>esc_url()</code> - Для виводу всіх URL</li>
+<li><code>esc_js()</code>- Для inline Javascript.</li>
+<li><code>esc_attr()</code> - Для HTML атрибутів</li>
+</ul>
+<h3 id='nonces'>Nonces</h3>
+<p>Nonce(number used once) - це токени, які використовуються для перевірки запитів в цілях безпеки.
+Наприклад згенероване посилання для видалення поста
+<code>http://wpmag.ru/wp-admin/post.php?post=123&amp;action=trash&amp;_wpnonce=b192fc4204</code></p>
+
+<p>не буде працювати для іншого поста
+<code>http://wpmag.ru/wp-admin/post.php?post=456&amp;action=trash&amp;_wpnonce=b192fc4204</code></p>
+
+<p>Також це захист від підробки запитів(CSRF).</p>
+
+<p>Кожен Nonce може використовуватися тільки один раз, і має обмежений термін дії.</p>
+
+<p><code>wp_nonce_field( $action, $name, $referer, $echo )</code> - використовується для генерації nonce</p>
+
+<p><code>wp_create_nonce($action)</code> - генерує nonce</p>
+
+<p><code>wp_nonce_url()</code> - Retrieve URL with nonce added to URL query.</p>
+<h2 id='internationalization'>Internationalization</h2>
+<p>Переклади для плагіну повинні мати простір імен(домен). 
+Самі файли перекладів не підгружаються автоматично їх потрібно загрузити по action &#39;init&#39;</p>
+
+<blockquote>
+<p>Загрузка файлів перекладу</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'init'</span><span class="p">,</span> <span class="p">[</span> <span class="nv">$this</span><span class="p">,</span> <span class="s1">'loadTextDomain'</span> <span class="p">]</span> <span class="p">);</span>
+
+<span class="sd">/**
+ * Load plugin translations
+ */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">loadTextDomain</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">load_plugin_textdomain</span><span class="p">(</span> <span class="s1">'translation-domain'</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span>  <span class="s1">'plugin_name/languages/'</span> <span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+<p>Для виводу перекладеної строки потрібно викликати  __() або _e();</p>
+
+<blockquote>
+<p>Повернути перекладену строку</p>
+</blockquote>
+<pre class="highlight php tab-php"><code>__($message, $domain)
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Вивести перекладену строку</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
+<pre class="highlight php tab-php"><code>виводить дані - _e($message, $domain)
+</code></pre><h2 id='roles-and-capabilities'>Roles and Capabilities</h2>
+<p><a href="https://codex.wordpress.org/Roles_and_Capabilities">Roles and Capabilities</a><br>
+В Wordpress існують такі поняття як roles та capabilities</p>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<ul>
+<li>roles - ролі користувачів (Administrator, Editor, Customer)</li>
+<li>capabilities - права для ролі (активація плагіну, видалення поста)</li>
+</ul>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>Отримати список всіх ролей та прав можна через ф-ію <code>wp_roles()</code></p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<blockquote>
+<p>current_user_can</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nx">current_user_can</span><span class="p">(</span> <span class="nv">$capability</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//код
+</span><span class="p">}</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="c1">// Перевірка для конкретного поста
+</span><span class="nx">current_user_can</span><span class="p">(</span> <span class="s1">'edit_post'</span><span class="p">,</span> <span class="nv">$post_id</span> <span class="p">);</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>author_can</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nx">author_can</span><span class="p">(</span> <span class="nv">$post</span><span class="p">,</span> <span class="nv">$capability</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//код
+</span><span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>add_role</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Створення ролі та перевірка прав:
+</span><span class="nx">add_role</span><span class="p">(</span> <span class="nv">$role_name</span><span class="p">,</span> <span class="nv">$display_name</span><span class="p">,</span> <span class="nv">$capabilities</span> <span class="p">);</span>
 
-<p>The Kittn API uses the following error codes:</p>
+<span class="nx">add_role</span><span class="p">(</span> <span class="s1">'photo_uploader'</span><span class="p">,</span> <span class="s1">'Photo Uploader'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'organize_gallery'</span> <span class="p">)</span> <span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nx">current_user_can</span><span class="p">(</span> <span class="s1">'organize_gallery'</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// код
+</span><span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>remove_role</p>
+</blockquote>
+<pre class="highlight php tab-php"><code>remove_role( 'photo_uploader' );
+</code></pre><h3 id='functions'>Functions:</h3>
+<p><code>current_user_can(string $capability, int $object_id) : boolean</code><br>
+Перевірка прав для поточного користувача</p>
 
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>400</td>
-<td>Bad Request -- Your request sucks</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
-</tr>
-</tbody></table>
+<p><code>user_can(    int|object $user, string $capability) : boolean</code><br>
+Перевірка прав для користувача  </p>
+
+<p><code>author_can( object|int $post,string $capability ) : boolean</code><br>
+Перевірка прав для автора поста   </p>
+
+<p><code>add_role( string $role_name, string $display_name, array $capabilities ) : WP_Role|null</code><br>
+Додати роль  </p>
+
+<p><code>remove_role( $role_name )</code><br>
+Видалити роль  </p>
+<h3 id='wp_role'>WP_Role</h3>
+<blockquote>
+<p>WP_Role</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// get the the role object
+</span><span class="nv">$role_object</span> <span class="o">=</span> <span class="nx">get_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
+
+<span class="c1">// add $cap capability to this role object
+</span><span class="nv">$role_object</span><span class="o">-&gt;</span><span class="na">add_cap</span><span class="p">(</span> <span class="nv">$capability_name</span> <span class="p">);</span>
+
+<span class="c1">// remove $cap capability from this role object
+</span><span class="nv">$role_object</span><span class="o">-&gt;</span><span class="na">remove_cap</span><span class="p">(</span> <span class="nv">$capability_name</span> <span class="p">);</span>
+</code></pre>
+<p>Це клас який представляє роль у вигляді об&#39;єкту і дозволяє проводити маніпуляції з правами.</p>
+
+<blockquote>
+<p>WP_User</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// get user by user ID
+</span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_User</span><span class="p">(</span> <span class="nv">$id</span> <span class="p">);</span>
+
+<span class="c1">// or get user by username
+</span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_User</span><span class="p">(</span> <span class="kc">null</span><span class="p">,</span> <span class="nv">$name</span> <span class="p">);</span>
+
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">add_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">remove_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">set_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
+
+</code></pre><h3 id='wp_user'>WP_User</h3>
+<blockquote>
+<p>Маніпуляція з правами</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// check whether the user has a certain capability or role name
+</span><span class="k">if</span> <span class="p">(</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">has_cap</span><span class="p">(</span> <span class="nv">$cap_name</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+<span class="c1">// do something
+</span><span class="p">}</span>
+
+<span class="c1">// add a capability to the user and grant access to that capability
+</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">add_cap</span><span class="p">(</span> <span class="nv">$cap_name</span> <span class="p">);</span>
+
+<span class="c1">// remove a capability from the user
+</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">remove_cap</span><span class="p">(</span> <span class="nv">$cap_name</span> <span class="p">);</span>
+
+<span class="c1">// remove all capabilities from the user
+</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">remove_all_caps</span><span class="p">();</span>
+</code></pre>
+<p>Клас дозволяє керувати ролями та правами для конкретного користувача</p>
+<h2 id='hooks'>Hooks</h2>
+<p>Хуки створені для того щоб надати можливість розширювати функціонал вордпрес не змінюючи коду
+ядра. Існують два типи хуків Filter та Action.</p>
+<h2 id='actions'>Actions</h2>
+<p>Actions - це функції які виконуються при певній події, 
+наприклад при збереженні поста, зміні теми, відображені сторінки.</p>
+<h3 id=''>Перевірка чи існує подія</h3>
+<p><code>has_action( string $tag, callable $callback)</code></p>
+<h3 id='-2'>Добавити функцію до події</h3>
+<p><code>add_action( string $tag, callable $callback, int $priority, int $accepted_args)</code></p>
+<h3 id='-3'>Створити подію</h3>
+<p><code>do_action( string $tag, mixed $arg)</code></p>
+<h3 id='-4'>Створити подію з масивом аргументів</h3>
+<p><code>do_action_ref_array(string $tag, array $args)</code></p>
+<h3 id='-5'>Отримати скільки разів викликалась подія</h3>
+<p><code>did_action(string $tag)</code></p>
+<h3 id='-6'>Видалити функція підписану на подію</h3>
+<p><code>remove_action(string $tag, callable $callback, int $priority)</code></p>
+<h3 id='-7'>Видалити всі хуки прикріплені до події</h3>
+<p><code>remove_all_actions(string $tag, int $priority)</code></p>
+<h3 id='-8'>Перевірити чи зараз виконується подія</h3>
+<p><code>doing_action(string $action)</code></p>
+<h2 id='filters'>Filters</h2>
+<p>Filters - Це функції які обробляють дані перед тим як продовжити 
+якусь операцію (вивід, запис в БД). Фільтри повинні повертати дані.</p>
+<h3 id='-9'>Перевірка чи існує фільтр</h3>
+<p><code>has_filter(string $tag, callable $callback)</code></p>
+<h3 id='-10'>Додати фільтр</h3>
+<p><code>add_filter(string $tag, callable $callback, int $priority, int $accepted_args)</code></p>
+<h3 id='-11'>Додати фільтр з масивом аргументів</h3>
+<p><code>apply_filters_ref_array(string $tag, array $args)</code></p>
+<h3 id='-12'>Отримати назву поточного хука</h3>
+<p><code>current_filter()</code></p>
+<h3 id='-13'>Видалити фільтр</h3>
+<p><code>remove_filter(string $tag, callable $callback, int $priority)</code></p>
+<h3 id='-14'>Створення кастомної події для фільтрування</h3>
+<p><code>apply_filters(string $tag, mixed $value)</code></p>
+<h3 id='-15'>Реєстрація фільтру</h3>
+<p><code>add_filter(string $tag , callable $callback, int $priority, int $accepted_args)</code></p>
+<h3 id='-16'>Видалити всі хуки для фільтру</h3>
+<p><code>remove_all_filters(string $tag, int $priority)</code></p>
+<h3 id='-17'>Перевірити чи зараз виконується фільтр</h3>
+<p><code>doing_filter(string $filter)</code></p>
+<h2 id='filters-reference'>Filters Reference</h2><h3 id='save_post_-post_type'>save_post_{post_type}</h3>
+<p>Хук що спрацьовує при збереженні поста типу post_type. Для товарів, save_post_product  </p>
+
+<p>Тип: action<br>
+Параметри:  </p>
+
+<ol>
+<li>int $post_id   - post id</li>
+<li>WP_Post  $post - post object</li>
+<li>bool $updated  - whether this is an existing post being updated or not.</li>
+</ol>
+<h3 id='wp_trash_post'>wp_trash_post</h3>
+<p>Хук що спрацьовує при пересенні поста в корзину</p>
+
+<p>Тип: action<br>
+Параметри:</p>
+
+<ol>
+<li>int $post_id - Post ID</li>
+</ol>
+<h2 id='database-structure'>Database structure</h2>
+<p><a href="https://codex.wordpress.org/Database_Description">Database Description</a></p>
+
+<ul>
+<li><code>wp_comments</code> - коменти</li>
+<li><code>wp_commentmeta</code> - додаткові дані коментів</li>
+<li><code>wp_options</code>  - налаштування</li>
+<li><code>wp_posts</code> - пости ( пости, сторінки, товари, аттачменти(зображення постів), елементи меню, замовлення)</li>
+<li><code>wp_postmeta</code>-  додаткові дані постів</li>
+<li><code>wp_terms</code> - терміни таксономії (Значення властивостей, категорії, теги)</li>
+<li><code>wp_term_relationships</code> - джойнить терми до постів</li>
+<li><code>wp_term_taxonomy</code> - визначає до якої таксономії (властивість, категорія, тип товару, тег, бренд) відноситься кожен термін.</li>
+<li><code>wp_users</code> - користувачі</li>
+<li><code>wp_usermeta</code> - додаткові дані користувачів</li>
+<li><code>wp_links</code> - застаріла таблиця</li>
+</ul>
+<h2 id='metadata'>Metadata</h2>
+<p>todo: write this doc</p>
+<h2 id='settings'>Settings</h2>
+<p>todo: write this doc</p>
+<h2 id='shortcodes'>Shortcodes</h2>
+<p>todo: write this doc</p>
+<h2 id='taxonomies'>Taxonomies</h2>
+<p>todo: write this doc</p>
+<h2 id='users'>Users</h2>
+<p>todo: write this doc</p>
+<h2 id='widgets'>Widgets</h2>
+<p>todo: write this doc</p>
+<h1 id='woocommerce'>Woocommerce</h1><h2 id='hooks'>Hooks</h2>
+<p><a href="https://docs.woocommerce.com/wc-apidocs/hook-docs.html">WooCommerce hooks reference</a><br>
+<a href="https://codex.wordpress.org/Plugin_API/Filter_Reference">Wordpress filter reference</a><br>
+<a href="https://codex.wordpress.org/Plugin_API/Action_Reference">Wordpress action reference</a><br>
+<a href="https://developer.wordpress.org/reference/hooks/">Wordpress hooks reference</a>  </p>
+<h3 id='woocommerce_get_breadcrumb'>woocommerce_get_breadcrumb</h3>
+<p>Дозволяє підмінити breadcrums  </p>
+
+<p>Тип: filter   </p>
+
+<p>Параметри:  </p>
+
+<ol>
+<li>array - breadcrums</li>
+<li>WC_Breadcrumb - object</li>
+</ol>
+<h3 id='woocommerce_shipping_instance_form_fields_-shipping_title'>woocommerce_shipping_instance_form_fields_{shipping_title}</h3>
+<p>Фільтр що повертає масив полів шіппінг методу з назвою shipping_title</p>
+
+<p>Тип: filter</p>
+<h3 id='woocommerce_product_options_general_product_data'>woocommerce_product_options_general_product_data</h3>
+<p>Спрацьовує коли формується вкладка General в картці продукту</p>
+
+<p>Тип: action</p>
+<h3 id='woocommerce_process_product_meta'>woocommerce_process_product_meta</h3>
+<p>Спрацьовує на збереження продукту</p>
+
+<p>Тип: action</p>
+<h3 id='woocommerce_product_after_variable_attributes'>woocommerce_product_after_variable_attributes</h3>
+<p>Спрацьовує коли формується форма для кожного варіанту товара</p>
+
+<p>Тип: action</p>
+<h3 id='woocommerce_save_product_variation'>woocommerce_save_product_variation</h3>
+<p>Спрацьовує на збереження варіантів товару</p>
+
+<p>Тип: action</p>
+<h3 id='woocommerce_product_get_price'>woocommerce_product_get_price</h3>
+<p>Спрацьовує в той момент коли береться ціна продукту</p>
+
+<p>Тип: filter</p>
+<h3 id='woocommerce_product_get_sale_price'>woocommerce_product_get_sale_price</h3>
+<p>Спрацьовує в той момент коли береться ціна продажу продукту</p>
+
+<p>Тип: filter</p>
+<h3 id='woocommerce_product_variation_get_price'>woocommerce_product_variation_get_price</h3>
+<p>Спрацьовує в той момент коли береться ціна вараінта продукту</p>
+
+<p>Тип: filter</p>
+<h3 id='woocommerce_product_variation_get_sale_price'>woocommerce_product_variation_get_sale_price</h3>
+<p>Спрацьовує в той момент коли береться ціна продажу вараінта продукту</p>
+
+<p>Тип: filter</p>
+<h3 id='woocommerce_variation_prices_price'>woocommerce_variation_prices_price</h3>
+<p>Спрацьовує коли формується ціна для варіанту (front price range)</p>
+
+<p>Тип: filter</p>
+<h3 id='woocommerce_variation_prices_sale_price'>woocommerce_variation_prices_sale_price</h3>
+<p>Спрацьовує коли формується ціна для варіанту (front price range)</p>
+
+<p>Тип: filter</p>
+<h1 id='premmerce-dev-tools'>Premmerce Dev Tools</h1>
+<p>todo: write this doc</p>
+<h1 id='premmerce-woocommerce-brands'>Premmerce WooCommerce Brands</h1>
+<p>todo: write this doc</p>
+<h1 id='woocommerce-customers-manager'>WooCommerce Customers Manager</h1>
+<p>todo: write this doc</p>
+<h1 id='woocommerce-permalink-manager'>WooCommerce Permalink Manager</h1>
+<p>todo: write this doc</p>
+<h1 id='woocommerce-seo-addon'>WooCommerce SEO Addon</h1>
+<p>todo: write this doc</p>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="php">php</a>
           </div>
       </div>
     </div>
