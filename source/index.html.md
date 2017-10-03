@@ -14,17 +14,17 @@ includes:
   - wordpress/admin_menu
   - wordpress/security
   - wordpress/internationalization
-  - wordpress/roles
   - wordpress/hooks
   - wordpress/filters_reference
   - wordpress/database
+  - wordpress/posts
   - wordpress/metadata
   - wordpress/meta_boxes
-  - wordpress/posts
   - wordpress/settings
   - wordpress/shortcodes
   - wordpress/taxonomies
   - wordpress/users
+  - wordpress/roles
   - wordpress/widgets
   - woocommerce
   - premmerce

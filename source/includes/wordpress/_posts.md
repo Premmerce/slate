@@ -64,7 +64,9 @@ add_action('pre_get_posts', 'wporg_add_custom_post_types');
 * page
 * attachment
 * revision
-* menu
+* nav_menu_item
+* custom_css
+* customize_changeset
 
 При розробці плагіну часто потрібно реалізувати свої типи постів наприклад, товари для e-commerce сайтів
 відео для сайтів з оглядами. Для того щоб додати свій потрібно зареєструвати новий post_type за допомогою `register_post_type`.
