@@ -293,6 +293,9 @@
                   <li>
                     <a href="#widgets" class="toc-h2 toc-link" data-title="Wordpress">Widgets</a>
                   </li>
+                  <li>
+                    <a href="#wpdb" class="toc-h2 toc-link" data-title="Wordpress">WPDB</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -330,7 +333,15 @@
         <h1 id='premmerce'>Premmerce</h1>
 <p>Welcome to the Premmerce developers documentation!</p>
 <h1 id='wordpress'>Wordpress</h1>
-<p><a href="https://developer.wordpress.org/plugins/intro/">Документація для розробників Wordpress</a></p>
+<p>Офіційна документація:  </p>
+
+<ul>
+<li><a href="https://developer.wordpress.org/plugins/">Plugins handbook</a></li>
+<li><a href="https://developer.wordpress.org/themes/">Theme Handbook</a></li>
+<li><a href="https://developer.wordpress.org/reference/">Code reference</a></li>
+<li><a href="https://developer.wordpress.org/rest-api/">REST API Handbook</a></li>
+<li><a href="https://developer.wordpress.org/cli/commands/">WP-CLI Commands</a></li>
+</ul>
 <h2 id='create-plugin'>Create plugin</h2>
 <blockquote>
 <p>Заголовки в файлі плагіну.</p>
@@ -1744,7 +1755,442 @@ $query = new WP_Query( array( &#39;post_group&#39; =&gt; &#39;archive&#39; ) );
 </code></pre>
 <p>Клас дозволяє керувати ролями та правами для конкретного користувача</p>
 <h2 id='widgets'>Widgets</h2>
-<p>todo: write this doc</p>
+<blockquote>
+<p>Клас віджету</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span> 
+
+<span class="k">class</span> <span class="nc">My_Widget</span> <span class="k">extends</span> <span class="nx">WP_Widget</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span>
+            <span class="s1">'premmerce_widget'</span><span class="p">,</span>  <span class="c1">// Base ID
+</span>            <span class="s1">'Some widget'</span>   <span class="c1">// Name
+</span>        <span class="p">);</span>
+
+    <span class="p">}</span>
+
+
+    <span class="c1">// Вивід віджету на фронт
+</span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">widget</span><span class="p">(</span> <span class="nv">$args</span><span class="p">,</span> <span class="nv">$instance</span> <span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">echo</span> <span class="nv">$args</span><span class="p">[</span><span class="s1">'before_widget'</span><span class="p">];</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="k">empty</span><span class="p">(</span> <span class="nv">$instance</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$args</span><span class="p">[</span><span class="s1">'before_title'</span><span class="p">]</span> <span class="o">.</span> <span class="nx">apply_filters</span><span class="p">(</span> <span class="s1">'widget_title'</span><span class="p">,</span> <span class="nv">$instance</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="p">)</span> <span class="o">.</span> <span class="nv">$args</span><span class="p">[</span><span class="s1">'after_title'</span><span class="p">];</span>
+        <span class="p">}</span>
+
+        <span class="k">echo</span> <span class="s1">'&lt;div class="textwidget"&gt;'</span><span class="p">;</span>
+
+        <span class="k">echo</span> <span class="nx">esc_html__</span><span class="p">(</span> <span class="nv">$instance</span><span class="p">[</span><span class="s1">'text'</span><span class="p">],</span> <span class="s1">'text_domain'</span> <span class="p">);</span>
+
+        <span class="k">echo</span> <span class="s1">'&lt;/div&gt;'</span><span class="p">;</span>
+
+        <span class="k">echo</span> <span class="nv">$args</span><span class="p">[</span><span class="s1">'after_widget'</span><span class="p">];</span>
+
+    <span class="p">}</span>
+
+    <span class="c1">// Форма налаштувань віджета
+</span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">form</span><span class="p">(</span> <span class="nv">$instance</span> <span class="p">)</span> <span class="p">{</span>
+
+        <span class="nv">$title</span> <span class="o">=</span> <span class="o">!</span> <span class="k">empty</span><span class="p">(</span> <span class="nv">$instance</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="p">)</span> <span class="o">?</span> <span class="nv">$instance</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="o">:</span> <span class="nx">esc_html__</span><span class="p">(</span> <span class="s1">''</span><span class="p">,</span> <span class="s1">'text_domain'</span> <span class="p">);</span>
+        <span class="nv">$text</span> <span class="o">=</span> <span class="o">!</span> <span class="k">empty</span><span class="p">(</span> <span class="nv">$instance</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="p">)</span> <span class="o">?</span> <span class="nv">$instance</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="o">:</span> <span class="nx">esc_html__</span><span class="p">(</span> <span class="s1">''</span><span class="p">,</span> <span class="s1">'text_domain'</span> <span class="p">);</span>
+        <span class="cp">?&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">esc_attr</span><span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get_field_id</span><span class="p">(</span> <span class="s1">'title'</span> <span class="p">)</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="s">"</span><span class="nt">&gt;</span><span class="cp">&lt;?php</span> <span class="nx">esc_attr_e</span><span class="p">(</span> <span class="s1">'Title:'</span><span class="p">,</span> <span class="s1">'text_domain'</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"widefat"</span> <span class="na">id=</span><span class="s">"</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">esc_attr</span><span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get_field_id</span><span class="p">(</span> <span class="s1">'title'</span> <span class="p">)</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="s">"</span> <span class="na">name=</span><span class="s">"</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">esc_attr</span><span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get_field_name</span><span class="p">(</span> <span class="s1">'title'</span> <span class="p">)</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="s">"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">value=</span><span class="s">"</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">esc_attr</span><span class="p">(</span> <span class="nv">$title</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="s">"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            <span class="nt">&lt;textarea</span> <span class="na">class=</span><span class="s">"widefat"</span> <span class="na">id=</span><span class="s">"</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">esc_attr</span><span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get_field_id</span><span class="p">(</span> <span class="s1">'text'</span> <span class="p">)</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="s">"</span> <span class="na">name=</span><span class="s">"</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">esc_attr</span><span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get_field_name</span><span class="p">(</span> <span class="s1">'text'</span> <span class="p">)</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="s">"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">cols=</span><span class="s">"30"</span> <span class="na">rows=</span><span class="s">"10"</span><span class="nt">&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">esc_attr</span><span class="p">(</span> <span class="nv">$text</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="nt">&lt;/textarea&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="cp">&lt;?php</span>
+
+    <span class="p">}</span>
+
+    <span class="c1">// Обробка форми віджета
+</span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">update</span><span class="p">(</span> <span class="nv">$new_instance</span><span class="p">,</span> <span class="nv">$old_instance</span> <span class="p">)</span> <span class="p">{</span>
+
+        <span class="nv">$instance</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+        <span class="nv">$instance</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span> <span class="nv">$new_instance</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="o">?</span> <span class="nb">strip_tags</span><span class="p">(</span> <span class="nv">$new_instance</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="p">)</span> <span class="o">:</span> <span class="s1">''</span><span class="p">;</span>
+        <span class="nv">$instance</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span> <span class="nv">$new_instance</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="o">?</span> <span class="nv">$new_instance</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="o">:</span> <span class="s1">''</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nv">$instance</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'widgets_init'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">register_widget</span><span class="p">(</span> <span class="k">new</span> <span class="nx">My_Widget</span><span class="p">()</span> <span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre>
+<p>Віджети дозволяють додавати контент та різні фічі в сайдбар 
+()місця для віджетів визначені в шблоні). Це дає можливість користувачу швидко 
+кастомізувати свій сайт.</p>
+
+<p>Віджети це об&#39;єкти php які виводять певний HTML код. При створенні та реєстрації нового віджету 
+від зявиться в адмін панелі і буде доступний для виводу на фронт.</p>
+
+<p>Для того щоб створити віджет потрібно створити клас який наслідується від WP_Widget</p>
+
+<p>В класі віджету потрібно реалізувати наступні методи:</p>
+
+<ul>
+<li><code>__construct</code> - ініціалізація, встановлення description, name</li>
+<li><code>widget</code> - вивід віджету та фронті</li>
+<li><code>form</code> - форма налаштувань віджету</li>
+<li><code>update</code> - збереження налаштувань віджету</li>
+</ul>
+
+<aside class="notice">
+Віджети потрібно додавати по хуку `widgets_init`
+</aside>
+
+<p><a href="https://developer.wordpress.org/themes/functionality/widgets/">Wordpress widgets doc</a></p>
+<h2 id='wpdb'>WPDB</h2>
+<blockquote>
+<p>get_var</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$user_count</span> <span class="o">=</span> <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">get_var</span><span class="p">(</span> <span class="s2">"SELECT COUNT(*) FROM </span><span class="nv">$wpdb-&gt;users</span><span class="s2">"</span> <span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"&lt;p&gt;User count is </span><span class="si">{</span><span class="nv">$user_count</span><span class="si">}</span><span class="s2">&lt;/p&gt;"</span><span class="p">;</span>
+</code></pre>
+<blockquote>
+<p>get_row</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">global</span> <span class="nv">$wpdb</span><span class="p">;</span>
+
+<span class="c1">//об'єкт
+</span><span class="nv">$link</span> <span class="o">=</span> <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">get_row</span><span class="p">(</span> <span class="s2">"SELECT * FROM </span><span class="nv">$wpdb-&gt;links</span><span class="s2"> WHERE link_id = 10"</span> <span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">link_id</span><span class="p">;</span> <span class="c1">//"10"
+</span>
+<span class="c1">//асоціативний масив
+</span><span class="nv">$link</span> <span class="o">=</span> <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">get_row</span><span class="p">(</span> <span class="s2">"SELECT * FROM </span><span class="nv">$wpdb-&gt;links</span><span class="s2"> WHERE link_id = 10"</span><span class="p">,</span> <span class="nx">ARRAY_A</span> <span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$link</span><span class="p">[</span><span class="s1">'link_id'</span><span class="p">];</span> <span class="c1">//"10"
+</span>
+<span class="c1">//масив
+</span><span class="nv">$link</span> <span class="o">=</span> <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">get_row</span><span class="p">(</span> <span class="s2">"SELECT * FROM </span><span class="nv">$wpdb-&gt;links</span><span class="s2"> WHERE link_id = 10"</span><span class="p">,</span> <span class="nx">ARRAY_N</span> <span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$link</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//"10"
+</span>
+<span class="c1">//перевірка чи є результат
+</span><span class="k">if</span> <span class="p">(</span> <span class="kc">null</span> <span class="o">!==</span> <span class="nv">$link</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// запис знайдений
+</span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="c1">// не знайдено
+</span><span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>get_results</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">global</span> <span class="nv">$wpdb</span><span class="p">;</span>
+<span class="nv">$fives_drafts</span> <span class="o">=</span> <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">get_results</span><span class="p">(</span> 
+    <span class="s2">"
+    SELECT ID, post_title 
+    FROM </span><span class="nv">$wpdb-&gt;posts</span><span class="s2">
+    WHERE post_status = 'draft' 
+        AND post_author = 5
+    "</span>
+<span class="p">);</span>
+
+<span class="k">foreach</span> <span class="p">(</span> <span class="nv">$fives_drafts</span> <span class="k">as</span> <span class="nv">$fives_draft</span> <span class="p">)</span> 
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$fives_drafts</span><span class="o">-&gt;</span><span class="na">post_title</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>insert
+```php
+&lt;?php
+global $wpdb;</p>
+</blockquote>
+
+<p>$wpdb-&gt;insert( 
+    &#39;table&#39;, 
+    array( 
+        &#39;column1&#39; =&gt; &#39;value1&#39;, 
+        &#39;column2&#39; =&gt; 123 
+    ), 
+    array( 
+        &#39;%s&#39;, 
+        &#39;%d&#39; 
+    ) 
+);</p>
+
+<p>//ід вставленого значення
+$id = $wpdb-&gt;insert_id;
+```</p>
+
+<blockquote>
+<p>update</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">global</span> <span class="nv">$wpdb</span><span class="p">;</span>
+
+<span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span> 
+    <span class="s1">'table'</span><span class="p">,</span> 
+    <span class="k">array</span><span class="p">(</span> 
+        <span class="s1">'column1'</span> <span class="o">=&gt;</span> <span class="s1">'value1'</span><span class="p">,</span>  <span class="c1">// string
+</span>        <span class="s1">'column2'</span> <span class="o">=&gt;</span> <span class="s1">'value2'</span>   <span class="c1">// integer (number) 
+</span>    <span class="p">),</span> 
+    <span class="k">array</span><span class="p">(</span> <span class="s1">'ID'</span> <span class="o">=&gt;</span> <span class="mi">1</span> <span class="p">),</span> 
+    <span class="k">array</span><span class="p">(</span> 
+        <span class="s1">'%s'</span><span class="p">,</span>   <span class="c1">// value1
+</span>        <span class="s1">'%d'</span>    <span class="c1">// value2
+</span>    <span class="p">),</span> 
+    <span class="k">array</span><span class="p">(</span> <span class="s1">'%d'</span> <span class="p">)</span> 
+<span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>delete</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">global</span> <span class="nv">$wpdb</span><span class="p">;</span>
+
+<span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span> <span class="s1">'table'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'ID'</span> <span class="o">=&gt;</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">);</span>
+
+<span class="c1">// З форматуванням
+</span><span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span> <span class="s1">'table'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'ID'</span> <span class="o">=&gt;</span> <span class="mi">1</span> <span class="p">),</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'%d'</span> <span class="p">)</span> <span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>query</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">global</span> <span class="nv">$wpdb</span><span class="p">;</span>
+
+<span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span> 
+    <span class="c1">//підготовлений запит
+</span>    <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span> 
+        <span class="s2">"
+                DELETE FROM </span><span class="nv">$wpdb-&gt;postmeta</span><span class="s2">
+         WHERE post_id = %d
+         AND meta_key = %s
+        "</span><span class="p">,</span>
+            <span class="mi">13</span><span class="p">,</span> <span class="s1">'gargle'</span> 
+        <span class="p">)</span>
+<span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>prepare</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">global</span> <span class="nv">$wpdb</span><span class="p">;</span>
+
+<span class="nv">$metakey</span>    <span class="o">=</span> <span class="s2">"Harriet's Adages"</span><span class="p">;</span>
+<span class="nv">$metavalue</span>  <span class="o">=</span> <span class="s2">"WordPress' database interface is like Sunday Morning: Easy."</span><span class="p">;</span>
+
+<span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span> <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span> 
+    <span class="s2">"
+        INSERT INTO </span><span class="nv">$wpdb-&gt;postmeta</span><span class="s2">
+        ( post_id, meta_key, meta_value )
+        VALUES ( %d, %s, %s )
+    "</span><span class="p">,</span> 
+        <span class="mi">10</span><span class="p">,</span> 
+    <span class="nv">$metakey</span><span class="p">,</span> 
+    <span class="nv">$metavalue</span> 
+<span class="p">)</span> <span class="p">);</span>
+</code></pre>
+<p>WPDB - Це об&#39;єкт для абстракції доступу до БД</p>
+
+<p><a href="https://developer.wordpress.org/reference/classes/wpdb/">Code reference</a></p>
+
+<p>$wpdb - доступний як глобальна змінна і його можна використовувати в будь якій частині коду.</p>
+<h3 id='get_var'>get_var()</h3>
+<p>Отримати одну змінну з БД</p>
+
+<p><code>$wpdb-&gt;get_var( $query, $column_offset, $row_offset )</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $query</code> - SQL</li>
+<li><code>int $column_offset = 0</code> - номер колонки</li>
+<li><code>int $row_offset = 0</code> - номер рядка</li>
+</ul>
+<h3 id='get_row'>get_row()</h3>
+<p>Отримати рядок</p>
+
+<p><code>$wpdb-&gt;get_row($query, $output_type, $row_offset)</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $query</code> - SQL</li>
+<li><code>string $output_type</code> - тип який буде повернено, одна з констант:
+
+<ul>
+<li>OBJECT - об&#39;єкт.</li>
+<li>ARRAY_A - асоціативний масив.</li>
+<li>ARRAY_N - нумерованиий масив.</li>
+</ul></li>
+<li><code>int $row_offset</code> - номер колонки</li>
+</ul>
+<h3 id='get_col'>get_col()</h3>
+<p>Отримати колонку</p>
+
+<p><code>$wpdb-&gt;get_col($query, $column_offset)</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $query</code> - SQL</li>
+<li><code>int $column_offset = 0</code> - номер колонки</li>
+</ul>
+<h3 id='get_results'>get_results()</h3>
+<p>Отримати всі дані</p>
+
+<p><code>$wpdb-&gt;get_results($query, $output_type)</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $query</code> - SQL</li>
+<li><code>string $output_type</code> - тип який буде повернено, одна з констант:
+
+<ul>
+<li>OBJECT - масив об&#39;єктів.</li>
+<li>OBJECT_K - масив об&#39;єктів з ключами з першої колонки.</li>
+<li>ARRAY_A - масив асоціативних масивів.</li>
+<li>ARRAY_N - масив нумерованиич масивів.</li>
+</ul></li>
+</ul>
+<h3 id='insert'>insert()</h3>
+<p>Вставити рядок в БД</p>
+
+<p><code>$wpdb-&gt;insert($table, $data, $format)</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $table</code> - таблиця</li>
+<li><code>array $data</code> - дані для вставки (колонка=&gt;значення)</li>
+<li><code>array|string $format = null</code> - формат</li>
+</ul>
+<h3 id='replace'>replace()</h3>
+<p>Замінити рядок якщо такий існує, або створити новий</p>
+
+<p><code>$wpdb-&gt;replace( $table, $data, $format )</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $table</code> - таблиця</li>
+<li><code>array $data</code> - дані для вставки (колонка=&gt;значення)</li>
+<li><code>array|string $format = null</code> - формат</li>
+</ul>
+<h3 id='update'>update()</h3>
+<p>Оновити рядок в таблиці</p>
+
+<p><code>$wpdb-&gt;update($table, $data, $where, $format = null, $where_format = null )</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $table</code> - таблиця</li>
+<li><code>array $data</code> - дані для вставки (колонка=&gt;значення)</li>
+<li><code>array $where</code> - дані для умови where (колонка=&gt;значення)</li>
+<li><code>array|string $format = null</code> - формат</li>
+<li><code>array $where_format = null</code> - формат для умови where</li>
+</ul>
+<h3 id='delete'>delete()</h3>
+<p>Видалити рядки</p>
+
+<p><code>$wpdb-&gt;delete($table, $where, $where_format = null)</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $table</code> - таблиця</li>
+<li><code>array $where</code> - дані для умови where (колонка=&gt;значення)</li>
+<li><code>array $where_format = null</code> - формат для умови where</li>
+</ul>
+<h3 id='query'>query()</h3>
+<p>Для виконання кастомних запитів</p>
+
+<p><code>$wpdb-&gt;query(string $query)</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $query</code> - SQL</li>
+</ul>
+
+<aside class="warning">
+В Цілях безпеки від SQL ін'єкцій, всі запити<br>  
+необхідно проганяти через `$wpdb->prepare()`
+</aside>
+<h3 id='prepare'>prepare()</h3>
+<p>Очищує дані перед запитом, для захисту від SLQ Injection.</p>
+
+<p><code>$wpdb-&gt;prepare( $query , value_parameter[, value_parameter ... ] )</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>string $query</code> - SQL</li>
+<li><code>int|string|array value_parameter</code> - параметри</li>
+</ul>
+<h3 id='sql'>Вивід/Відключення виводу sql помилок</h3>
+<p>Вивід помилок можна влючити/відключити використовуючи наступні функції</p>
+
+<ul>
+<li><code>$wpdb-&gt;show_errors()</code><br></li>
+<li><code>$wpdb-&gt;hide_errors()</code><br></li>
+<li><code>$wpdb-&gt;print_error()</code><br></li>
+</ul>
+<h3 id='wpdb-2'>Властивості класу wpdb</h3>
+<ul>
+<li><code>$show_errors</code> - Чи виводяться помилки.</li>
+<li><code>$num_queries</code> - Кількість викликаних запитів.</li>
+<li><code>$last_query</code> - Останній виконаний запит.</li>
+<li><code>$last_error</code> - Остання помилка MySQL.</li>
+<li><code>$queries</code> - Можна зберегти всі викликані запити до бази та їхній час встановивши константу SAVEQUERIES = TRUE.</li>
+<li><code>$last_result</code> - Останні результати запиту.</li>
+<li><code>$col_info</code> - Інформація колонки останнього запиту.</li>
+<li><code>$insert_id</code> - ID згенерована AUTO_INCREMENT колонка з останнього inset запиту.</li>
+<li><code>$num_rows</code> - Кількість рядків повернених при останньому запиті.</li>
+<li><code>$prefix</code> - Префікс встановлений вордпресом для таблиць для сайту.</li>
+<li><code>$base_prefix</code> - Оригінальний префікс визначений в wp-config.php.</li>
+</ul>
+<h3 id='multi-site-variables'>Multi-Site Variables</h3>
+<p>При використанні Multi-Site, також доступні наступні значення:</p>
+
+<ul>
+<li><code>$blogid</code> - Id поточного сайту(блогу).</li>
+<li><code>$siteid</code> - Id поточної мережі. WordPress зараз підтримує тільки одну мережу на multi-site установку, але це зміниться в майбутньому.</li>
+</ul>
+<h3 id='tables'>Tables</h3>
+<p>The WordPress database tables are easily referenced in the wpdb class.</p>
+
+<ul>
+<li><code>$posts</code> - Пости.</li>
+<li><code>$postmeta</code> - Мета дані поста.</li>
+<li><code>$comments</code> - Коментарі.</li>
+<li><code>$commentmeta</code> - Мета дані коментарів.</li>
+<li><code>$termmeta</code> - Мета дані термів.</li>
+<li><code>$terms</code> - Терми.</li>
+<li><code>$term_taxonomy</code> - Таксономії.</li>
+<li><code>$term_relationships</code> - Звязки між term та об&#39;єктом який використовує term.</li>
+<li><code>$users</code> - Користувачі.</li>
+<li><code>$usermeta</code> - Мета дані користувачів.</li>
+<li><code>$links</code> - Лінки.</li>
+<li><code>$options</code> - Опції.</li>
+</ul>
+<h3 id='multisite-tables'>Multisite Tables</h3>
+<p>Ці таблиці використовуються тільки в multisite установках</p>
+
+<ul>
+<li><code>$blogs</code> - Список блогів (сайтів) всередині мережі.</li>
+<li><code>$signups</code> - Таблиця реєстрацій.</li>
+<li><code>$site</code> - Скписок мереж.</li>
+<li><code>$sitemeta</code> - Опції всієї установки multisite.</li>
+<li><code>$sitecategories</code> - Категорії сайту.</li>
+<li><code>$registration_log</code> - Лог реєстрація.</li>
+<li><code>$blog_versions</code> - Таблиця версій блогу.</li>
+</ul>
 <h1 id='woocommerce'>Woocommerce</h1><h2 id='hooks'>Hooks</h2>
 <p><a href="https://docs.woocommerce.com/wc-apidocs/hook-docs.html">WooCommerce hooks reference</a><br>
 <a href="https://codex.wordpress.org/Plugin_API/Filter_Reference">Wordpress filter reference</a><br>
