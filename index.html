@@ -1902,28 +1902,26 @@ $query = new WP_Query( array( &#39;post_group&#39; =&gt; &#39;archive&#39; ) );
 <span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>insert
-```php
-&lt;?php
-global $wpdb;</p>
+<p>insert</p>
 </blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">global</span> <span class="nv">$wpdb</span><span class="p">;</span>
 
-<p>$wpdb-&gt;insert( 
-    &#39;table&#39;, 
-    array( 
-        &#39;column1&#39; =&gt; &#39;value1&#39;, 
-        &#39;column2&#39; =&gt; 123 
-    ), 
-    array( 
-        &#39;%s&#39;, 
-        &#39;%d&#39; 
-    ) 
-);</p>
+<span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span> 
+    <span class="s1">'table'</span><span class="p">,</span> 
+    <span class="k">array</span><span class="p">(</span> 
+        <span class="s1">'column1'</span> <span class="o">=&gt;</span> <span class="s1">'value1'</span><span class="p">,</span> 
+        <span class="s1">'column2'</span> <span class="o">=&gt;</span> <span class="mi">123</span> 
+    <span class="p">),</span> 
+    <span class="k">array</span><span class="p">(</span> 
+        <span class="s1">'%s'</span><span class="p">,</span> 
+        <span class="s1">'%d'</span> 
+    <span class="p">)</span> 
+<span class="p">);</span>
 
-<p>//ід вставленого значення
-$id = $wpdb-&gt;insert_id;
-```</p>
-
+<span class="c1">//ід вставленого значення
+</span><span class="nv">$id</span> <span class="o">=</span> <span class="nv">$wpdb</span><span class="o">-&gt;</span><span class="na">insert_id</span><span class="p">;</span>
+</code></pre>
 <blockquote>
 <p>update</p>
 </blockquote>
@@ -1998,12 +1996,17 @@ $id = $wpdb-&gt;insert_id;
 <p><a href="https://developer.wordpress.org/reference/classes/wpdb/">Code reference</a></p>
 
 <p>$wpdb - доступний як глобальна змінна і його можна використовувати в будь якій частині коду.</p>
+
+<aside class="warning">
+    Назву таблиці в запитах необхідно брати з об'єкту $wpdb для вбудованих таблиць (пр. $wpdb->posts), 
+    та `$wpdb->prefix . 'table_name'` для кастомних таблиць
+</aside>
 <h3 id='get_var'>get_var()</h3>
 <p>Отримати одну змінну з БД</p>
 
 <p><code>$wpdb-&gt;get_var( $query, $column_offset, $row_offset )</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $query</code> - SQL</li>
@@ -2015,7 +2018,7 @@ $id = $wpdb-&gt;insert_id;
 
 <p><code>$wpdb-&gt;get_row($query, $output_type, $row_offset)</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $query</code> - SQL</li>
@@ -2033,7 +2036,7 @@ $id = $wpdb-&gt;insert_id;
 
 <p><code>$wpdb-&gt;get_col($query, $column_offset)</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $query</code> - SQL</li>
@@ -2044,7 +2047,7 @@ $id = $wpdb-&gt;insert_id;
 
 <p><code>$wpdb-&gt;get_results($query, $output_type)</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $query</code> - SQL</li>
@@ -2062,7 +2065,7 @@ $id = $wpdb-&gt;insert_id;
 
 <p><code>$wpdb-&gt;insert($table, $data, $format)</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $table</code> - таблиця</li>
@@ -2074,7 +2077,7 @@ $id = $wpdb-&gt;insert_id;
 
 <p><code>$wpdb-&gt;replace( $table, $data, $format )</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $table</code> - таблиця</li>
@@ -2086,7 +2089,7 @@ $id = $wpdb-&gt;insert_id;
 
 <p><code>$wpdb-&gt;update($table, $data, $where, $format = null, $where_format = null )</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $table</code> - таблиця</li>
@@ -2100,7 +2103,7 @@ $id = $wpdb-&gt;insert_id;
 
 <p><code>$wpdb-&gt;delete($table, $where, $where_format = null)</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $table</code> - таблиця</li>
@@ -2112,7 +2115,7 @@ $id = $wpdb-&gt;insert_id;
 
 <p><code>$wpdb-&gt;query(string $query)</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $query</code> - SQL</li>
@@ -2127,7 +2130,7 @@ $id = $wpdb-&gt;insert_id;
 
 <p><code>$wpdb-&gt;prepare( $query , value_parameter[, value_parameter ... ] )</code></p>
 
-<p><strong><em>Params</em></strong></p>
+<p><strong><em>Params:</em></strong></p>
 
 <ul>
 <li><code>string $query</code> - SQL</li>
@@ -2163,7 +2166,7 @@ $id = $wpdb-&gt;insert_id;
 <li><code>$siteid</code> - Id поточної мережі. WordPress зараз підтримує тільки одну мережу на multi-site установку, але це зміниться в майбутньому.</li>
 </ul>
 <h3 id='tables'>Tables</h3>
-<p>The WordPress database tables are easily referenced in the wpdb class.</p>
+<p>Назви таблиць</p>
 
 <ul>
 <li><code>$posts</code> - Пости.</li>
