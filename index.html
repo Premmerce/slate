@@ -261,7 +261,22 @@
                     <a href="#metadata" class="toc-h2 toc-link" data-title="Wordpress">Metadata</a>
                   </li>
                   <li>
-                    <a href="#settings" class="toc-h2 toc-link" data-title="Wordpress">Settings</a>
+                    <a href="#meta-boxes" class="toc-h2 toc-link" data-title="Wordpress">Meta Boxes</a>
+                  </li>
+                  <li>
+                    <a href="#posts" class="toc-h2 toc-link" data-title="Wordpress">Posts</a>
+                  </li>
+                  <li>
+                    <a href="#custom-post-types" class="toc-h2 toc-link" data-title="Wordpress">Custom post types</a>
+                  </li>
+                  <li>
+                    <a href="#settings-api" class="toc-h2 toc-link" data-title="Wordpress">Settings API</a>
+                  </li>
+                  <li>
+                    <a href="#options-api" class="toc-h2 toc-link" data-title="Wordpress">Options API</a>
+                  </li>
+                  <li>
+                    <a href="#settings-page" class="toc-h2 toc-link" data-title="Wordpress">Settings page</a>
                   </li>
                   <li>
                     <a href="#shortcodes" class="toc-h2 toc-link" data-title="Wordpress">Shortcodes</a>
@@ -756,11 +771,724 @@
 <li><code>wp_links</code> - застаріла таблиця</li>
 </ul>
 <h2 id='metadata'>Metadata</h2>
-<p>todo: write this doc</p>
-<h2 id='settings'>Settings</h2>
-<p>todo: write this doc</p>
+<p>Метадата додає можливість додати кастомні дані для поста. </p>
+<h3 id=''>Функції для роботи з метаданими.</h3><h3 id='add_post_meta'>add_post_meta()</h3>
+<p>Додати поле до поста</p>
+
+<p><code>add_post_meta($post_id, $meta_key, $meta_value, $unique)</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>int $post_id</code> - id поста<br>
+<code>string $meta_key</code> - ключ<br>
+<code>string|array $meta_value</code> - значення, масив буде серіалізований автоматично
+<code>boolean $unique</code> - унікальність поля  </p>
+
+<p><strong><em>Return:</em></strong><br>
+int|boolean - id створеного поля або false.  </p>
+
+<aside class="notice">
+Для створення прихованого поля meta_key повинен починатися з `_` наприклад `_hidden_meta_key`
+</aside>
+<h3 id='update_post_meta'>update_post_meta</h3>
+<p>Оновити дані поля для поста</p>
+
+<p><code>update_post_meta( $post_id, $meta_key, $meta_value, $prev_value )</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>int $post_id</code> - id поста<br>
+<code>string $meta_key</code> - ключ<br>
+<code>mixed $meta_value</code> - значення<br>
+<code>mixed $prev_value</code> - попереднє значення, параматр корисний коли існують декілька
+значень з однинаковим ключем.</p>
+
+<p><strong><em>Return:</em></strong><br>
+int|boolean - id створеного поля якщо такого поля не існує, або true/false.  </p>
+<h3 id='delete_post_meta'>delete_post_meta()</h3>
+<p>Видалити поле</p>
+
+<p><code>delete_post_meta($post_id, $meta_key, $meta_value)</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>int $post_id</code> - id поста<br>
+<code>string $meta_key</code> - ключ<br>
+<code>mixed $meta_value</code> - значення  </p>
+
+<p><strong><em>Return:</em></strong><br>
+boolean  </p>
+<h3 id='get_post_custom'>get_post_custom()</h3>
+<p>Отримати кастомні дані поста</p>
+
+<p><code>get_post_custom($post_id)</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>int $post_id</code> - id поста  </p>
+
+<p><strong><em>Return:</em></strong><br>
+array - масив всіх полів поста</p>
+<h3 id='get_post_custom_values'>get_post_custom_values()</h3>
+<p>Отримати масив значень поста для одного поля</p>
+
+<p><code>get_post_custom_values($key, $post_id)</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>string $key</code> - ключ поля<br>
+<code>int $post_id</code> - id поста  </p>
+
+<p><strong><em>Return:</em></strong><br>
+array - масив значень для поля</p>
+<h3 id='get_post_custom_keys'>get_post_custom_keys()</h3>
+<p>Оримати ключі кастомних полів для поста</p>
+
+<p><code>get_post_custom_keys($post_id)</code>  </p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>int $post_id</code> - id поста  </p>
+
+<p><strong><em>Return:</em></strong><br>
+array - масив ключів</p>
+<h2 id='meta-boxes'>Meta Boxes</h2>
+<p>Мета бокси це окремі контейнери з яких складається сторінка (скрін).
+Плагіни можуть розширювати сторінку редагування додаючи свої мета бокси. 
+Мета бокси дуже гнучкі, користувач може обирати які з них відображати на сторінці та
+змінювати їхні позиції.<br>
+<a href="https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/">Wordpress meta boxes docs</a>  </p>
+<h3 id=''>Створення мета бокса</h3>
+<blockquote>
+<p>Додати мета бокс</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">adding_custom_meta_boxes</span><span class="p">(</span> <span class="nv">$post_type</span><span class="p">,</span> <span class="nv">$post</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">add_meta_box</span><span class="p">(</span> 
+        <span class="s1">'my-meta-box'</span><span class="p">,</span>
+        <span class="nx">__</span><span class="p">(</span> <span class="s1">'My Meta Box'</span> <span class="p">),</span>
+        <span class="s1">'render_custom_box_html'</span><span class="p">,</span>
+        <span class="s1">'post'</span><span class="p">,</span>
+        <span class="s1">'normal'</span><span class="p">,</span>
+        <span class="s1">'default'</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'add_meta_boxes'</span><span class="p">,</span> <span class="s1">'adding_custom_meta_boxes'</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span> <span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Додати мета бокс поста типу post</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">adding_custom_meta_boxes</span><span class="p">(</span> <span class="nv">$post</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">add_meta_box</span><span class="p">(</span> 
+        <span class="s1">'my-meta-box'</span><span class="p">,</span>
+        <span class="nx">__</span><span class="p">(</span> <span class="s1">'My Meta Box'</span> <span class="p">),</span>
+        <span class="s1">'render_custom_box_html'</span><span class="p">,</span>
+        <span class="s1">'post'</span><span class="p">,</span>
+        <span class="s1">'normal'</span><span class="p">,</span>
+        <span class="s1">'default'</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'add_meta_boxes_post'</span><span class="p">,</span> <span class="s1">'adding_custom_meta_boxes'</span> <span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>render_custom_box_html</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">render_custom_box_html</span><span class="p">(</span><span class="nv">$post</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cp">?&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"wporg_field"</span><span class="nt">&gt;</span>Description for this field<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">"wporg_field"</span> <span class="na">id=</span><span class="s">"wporg_field"</span> <span class="na">class=</span><span class="s">"postbox"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">""</span><span class="nt">&gt;</span>Select something...<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"something"</span><span class="nt">&gt;</span>Something<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"else"</span><span class="nt">&gt;</span>Else<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;/select&gt;</span>
+    <span class="cp">&lt;?php</span>
+<span class="p">}</span>
+</code></pre>
+<p>Для створення метабокса потрібно додати action на <code>add_meta_boxes</code>.
+Також для конкретного типу поста можна використовувати <code>add_meta_boxes_{post_type}</code></p>
+
+<aside class="notice">
+Мета бокси не повинні мати кнопки submit, 
+поля мета боксів сабмітяться разом з формою
+</aside>
+<h3 id='-2'>Збереження даних</h3>
+<blockquote>
+<p>save data</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">wporg_save_postdata</span><span class="p">(</span><span class="nv">$post_id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">array_key_exists</span><span class="p">(</span><span class="s1">'wporg_field'</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">update_post_meta</span><span class="p">(</span>
+            <span class="nv">$post_id</span><span class="p">,</span>
+            <span class="s1">'_wporg_meta_key'</span><span class="p">,</span>
+            <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'wporg_field'</span><span class="p">]</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">add_action</span><span class="p">(</span><span class="s1">'save_post'</span><span class="p">,</span> <span class="s1">'wporg_save_postdata'</span><span class="p">);</span>
+</code></pre>
+<p>Для збереження даних метабоксу потрібно зареєструвати action на <code>save_post</code>. 
+Якщо потрібно записати дані в post_meta, можна використати функцію <code>update_post_meta</code></p>
+<h3 id='add_meta_box'>add_meta_box()</h3>
+<p>Функція додає мета бокс до скріна<br>
+<code>add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = &#39;advanced&#39;, string $priority = &#39;default&#39;, array $callback_args = null )</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>string $id</code> - id мета бокса (використовується як html атрибут &#39;id&#39; )<br>
+<code>string $title</code> - Title of the meta box<br>
+<code>callable $callback</code> - Колбек для виводу контенту<br>
+<code>string|array|WP_Screen $screen = null</code> - Скріни на яких показувати контент (такі як post_type, &#39;link&#39;, or &#39;comment&#39;). ID, WP_Screen або масив з id скрінів
+<code>string $context = &#39;advanced&#39;</code> - Де відображати &#39;normal&#39;, &#39;side&#39;, та &#39;advanced&#39;<br>
+<code>string $priority = &#39;default&#39;</code> - Пріоритет розташування (&#39;default&#39;, &#39;high&#39;, &#39;low&#39;).<br>
+<code>array $callback_args = null</code> - Дані які передаються в колбек.  </p>
+<h3 id='remove_meta_box'>remove_meta_box()</h3>
+<p>Видалити мета бокс</p>
+
+<p><code>remove_meta_box( string $id, string|array|WP_Screen $screen, string $context )</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>string $id</code> - id мета бокса (використовується як html атрибут &#39;id&#39; )<br>
+<code>string|array|WP_Screen $screen = null</code> - Скріни на яких показувати контент (такі як post_type, &#39;link&#39;, or &#39;comment&#39;). ID, WP_Screen або масив з id скрінів.<br>
+<code>string $context = &#39;advanced&#39;</code> - Де відображати &#39;normal&#39;, &#39;side&#39;, та &#39;advanced&#39;.  </p>
+<h2 id='posts'>Posts</h2>
+<p>Пости це основний тип даних Wordpress, за допомогою постів реалізовані, сторінки, товари, замовлення, пункти меню, зображення.</p>
+<h2 id='custom-post-types'>Custom post types</h2>
+<blockquote>
+<p>Реєстрація кастомного типу поста</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">custom_post_type</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">register_post_type</span><span class="p">(</span> <span class="s1">'premmerce_video'</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s1">'labels'</span>      <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">'name'</span>          <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Video'</span> <span class="p">),</span>
+                <span class="s1">'singular_name'</span> <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Videos'</span> <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="s1">'public'</span>      <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'has_archive'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'init'</span><span class="p">,</span> <span class="s1">'custom_post_type'</span> <span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Запит кастомного типу</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$args</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'post_type'</span>      <span class="o">=&gt;</span> <span class="s1">'premmerce_video'</span><span class="p">,</span>
+    <span class="s1">'posts_per_page'</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">];</span>
+<span class="nv">$loop</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_Query</span><span class="p">(</span><span class="nv">$args</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$loop</span><span class="o">-&gt;</span><span class="na">have_posts</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nv">$loop</span><span class="o">-&gt;</span><span class="na">the_post</span><span class="p">();</span>
+    <span class="cp">?&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"entry-content"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="nx">the_title</span><span class="p">();</span> <span class="cp">?&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="nx">the_content</span><span class="p">();</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;?php</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Розширення main query для вибірки кастомного типу</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">wporg_add_custom_post_types</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">is_home</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">is_main_query</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'post_type'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'post'</span><span class="p">,</span> <span class="s1">'page'</span><span class="p">,</span> <span class="s1">'premmerce_video'</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$query</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">add_action</span><span class="p">(</span><span class="s1">'pre_get_posts'</span><span class="p">,</span> <span class="s1">'wporg_add_custom_post_types'</span><span class="p">);</span>
+
+</code></pre>
+<p>За замовчуванням в Wordpress 5 типів постів:</p>
+
+<ul>
+<li>post</li>
+<li>page</li>
+<li>attachment</li>
+<li>revision</li>
+<li>menu</li>
+</ul>
+
+<p>При розробці плагіну часто потрібно реалізувати свої типи постів наприклад, товари для e-commerce сайтів
+відео для сайтів з оглядами. Для того щоб додати свій потрібно зареєструвати новий post_type за допомогою <code>register_post_type</code>.
+Новий тип за замовчуванням не буде автоматично вибиратися з бази на сторінці постів, але цю поведінку можна змінити шляхом
+розширення головного запиту (main query) (див. приклад праворуч). </p>
+<h3 id='register_post_type'>register_post_type()</h3>
+<p>Реєстрація типа поста</p>
+
+<p><code>register_post_type( string $post_type, array|string $args = array() )</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>string $post_type</code> - Унікальний ключ типу<br>
+<code>array $args</code> - Масив з описом типу(<a href="https://developer.wordpress.org/reference/functions/register_post_type/">register post type</a>)  </p>
+
+<aside class="warning">
+Функція register_post_type() повинна викликатись перед `admin_init` та після `after_setup_theme` хуків.
+Найкращий варіант використовувати хук `init`.
+</aside>
+
+<aside class="warning">
+Для того щоб уникнути конфліктів між плагінами ідентифікатор повинен бути унікальним
+</aside>
+<h2 id='settings-api'>Settings API</h2>
+<p>Settings API дозволяє напів автоматично створювати та обробляти сторінки налаштувань.
+API дає можливість створювати сторінки, секції на сторінках та поля в секціях.</p>
+<h3 id='register_settings'>register_settings()</h3>
+<p>Зареєструвати налаштування і дані </p>
+
+<p><code>register_setting( string $option_group, string $option_name, array $args = array() )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option_group</code> - Назва групи<br></li>
+<li><code>string $option_name</code> - Назва налаштування<br></li>
+<li><code>array $args = []</code> - Опис налаштування<br></li>
+</ul>
+<h3 id='unregister_setting'>unregister_setting()</h3>
+<p>Відмінити реєстрацію налаштувань</p>
+
+<p><code>unregister_setting( string $option_group, string $option_name, callable $deprecated = &#39;&#39; )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option_group</code> - Назва групи<br></li>
+<li><code>string $option_name</code> - Назва налаштування<br></li>
+<li><code>callable $deprecated</code> - Застарілий параметр</li>
+</ul>
+<h3 id='add_settings_section'>add_settings_section()</h3>
+<p>додати нову секцію налаштувань</p>
+
+<p><code>add_settings_section( string $id, string $title, callable $callback, string $page )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $id</code> - Ідентифікатор секції</li>
+<li><code>string $title</code> - Заголовок</li>
+<li><code>callable $callback</code> - Колбек для виводу контенту секції (текст між заголовком та полями)</li>
+<li><code>string $page</code> - Сторінка на якій будуть виводитись налаштування. Вбудовані сторінки
+&#39;general&#39;, &#39;reading&#39;, &#39;writing&#39;, &#39;discussion&#39;, &#39;media&#39;. Також можна створити свою сторінку налаштувань <code>add_options_page()</code></li>
+</ul>
+<h3 id='add_settings_field'>add_settings_field()</h3>
+<p><code>add_settings_field( string $id, string $title, callable $callback, string $page, string $section = &#39;default&#39;, array $args = array() )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $id</code> - Ідентифікатор поля</li>
+<li><code>string $title</code> - Лейбл поля</li>
+<li><code>callable $callback</code> - Колбек для виводу поля</li>
+<li><code>string $page</code> - Сторінка налаштувань</li>
+<li><code>string $section = &#39;default&#39;</code> - Секція налаштувань</li>
+<li><code>array $args = array()</code> - Додаткові дані які використовуються для виводу поля
+
+<ul>
+<li><code>label_for</code> -  Коли передано, поле буде огорнуто в <code>&lt;label&gt;</code> з цим атрибутом <code>for</code>.</li>
+<li><code>class</code> - CSS клас який буде додато <code>&lt;tr&gt;</code> елемента при виводі.</li>
+</ul></li>
+</ul>
+<h3 id='settings_fields'>settings_fields()</h3>
+<p>Вивід <strong>nonce</strong>, <strong>action</strong> та <strong>option_page</strong> полів на сторінці налаштувань, які потрібні для безпеки та правильної обробки форми.</p>
+
+<p><code>settings_fields( string $option_group )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option_group</code> - Назва групи налаштувань</li>
+</ul>
+<h3 id='do_settings_sections'>do_settings_sections()</h3>
+<p>Вивести секції привязані до сторінки</p>
+
+<p><code>do_settings_sections( string $page )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $page</code> - slug сторінки</li>
+</ul>
+<h3 id='do_settings_fields'>do_settings_fields()</h3>
+<p>Вивести поля для секції налаштувань</p>
+
+<p><code>do_settings_fields( string $page, string $section )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $page</code> - Slug сторінки</li>
+<li><code>string $section</code> - Slug секції</li>
+</ul>
+<h3 id='add_settings_error'>add_settings_error()</h3>
+<p>Зареєструвати помилку для сторінки налаштувань</p>
+
+<p><code>add_settings_error( string $setting, string $code, string $message, string $type = &#39;error&#39; )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $setting</code> - Slug налаштування</li>
+<li><code>string $code</code> - Slug ідентифікатор помилки</li>
+<li><code>string $message</code> - Повідомлення</li>
+<li><code>string $type = &#39;error&#39;</code> - Тип помилки &#39;error&#39;(червоний) або &#39;updated&#39;(зелений)</li>
+</ul>
+<h3 id='get_settings_errors'>get_settings_errors()</h3>
+<p>Отримати мопилки налаштувань</p>
+
+<p><code>get_settings_errors( string $setting = &#39;&#39;, boolean $sanitize = false )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $setting = &#39;&#39;</code> - Slug налаштувань</li>
+<li><code>boolean $sanitize = false</code> - Очистити повідомлення</li>
+</ul>
+<h3 id='settings_errors'>settings_errors</h3>
+<p>Вивести повідомлення</p>
+
+<p><code>settings_errors( string $setting = &#39;&#39;, bool $sanitize = false, bool $hide_on_update = false )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $setting = &#39;&#39;</code> - Slug налаштування</li>
+<li><code>bool $sanitize = false</code> - Очистити повідомлення</li>
+<li><code>bool $hide_on_update = false</code> - Якщо true помилки будуть виводитись якщо сторінка вже була засабмічена</li>
+</ul>
+<h2 id='options-api'>Options API</h2>
+<p>Options API дає можливість, зберігати, читати, оновлювати налаштування плагіну в БД.</p>
+<h3 id='add_option'>add_option()</h3>
+<p>Додати нову опцію</p>
+
+<p><code>add_option(string $option, mixed $value = &#39;&#39;, string $deprecated = &#39;&#39;, string|bool $autoload = &#39;yes&#39;)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option</code> - Ключ</li>
+<li><code>mixed $value = &#39;&#39;</code> - Значення</li>
+<li><code>string $deprecated = &#39;&#39;</code> - Не використовується</li>
+<li><code>string|bool $autoload = &#39;yes&#39;</code> - Загружати автоматично</li>
+</ul>
+<h3 id='add_site_option'>add_site_option()</h3>
+<p>Додати нову опцію для поточного сайту</p>
+
+<p><code>add_site_option(string $option, mixed $value)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option</code> - Ключ</li>
+<li><code>mixed $value = &#39;&#39;</code> - Значення</li>
+</ul>
+<h3 id='get_option'>get_option()</h3>
+<p>Отримати значення</p>
+
+<p><code>get_option( string $option, mixed $default = false )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option</code> - Ключ</li>
+<li><code>mixed $default = false</code> - Значення за замовчуванням</li>
+</ul>
+<h3 id='get_site_option'>get_site_option()</h3>
+<p>Отримати значення для поточного сайту</p>
+
+<p><code>get_site_option(string $option, mixed $default = false, bool $deprecated = true)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option</code> - Ключ</li>
+<li><code>mixed $default = false</code> - Значення за замовчуванням</li>
+<li><code>bool $deprecated = true</code> - Не викоритовується</li>
+</ul>
+<h3 id='update_option'>update_option()</h3>
+<p>Оновити опцію</p>
+
+<p><code>update_option( string $option, mixed $value, string|bool $autoload = null )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option</code> - Ключ</li>
+<li><code>mixed $value</code> - Значення</li>
+<li><code>string|bool $autoload = null</code> - Підгружати автоматично </li>
+</ul>
+<h3 id='update_site_option'>update_site_option()</h3>
+<p>Оновити опцію для поточного сайту</p>
+
+<p><code>update_site_option(string $option, mixed $value)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option</code> - Ключ</li>
+<li><code>mixed $value</code> - Значення</li>
+</ul>
+<h3 id='delete_option'>delete_option()</h3>
+<p>Видалити опцію</p>
+
+<p><code>delete_option( string $option )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option</code> - Ключ</li>
+</ul>
+<h3 id='delete_site_option'>delete_site_option()</h3>
+<p>Видалити опцію для поточного сайту</p>
+
+<p><code>delete_site_option(string $option)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $option</code> - Ключ</li>
+</ul>
+<h2 id='settings-page'>Settings page</h2>
+<blockquote>
+<p>Ініціалізація налаштувань</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">function</span> <span class="nf">premmerce_settings_init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Зареєструвати налаштування "premmerce" page
+</span>    <span class="nx">register_setting</span><span class="p">(</span> <span class="s1">'premmerce'</span><span class="p">,</span> <span class="s1">'premmerce_options'</span> <span class="p">);</span>
+
+    <span class="c1">// Зареєструвати секцію на сторінці "premmerce"
+</span>    <span class="nx">add_settings_section</span><span class="p">(</span>
+        <span class="s1">'premmerce_section'</span><span class="p">,</span>
+        <span class="s1">'Секція'</span><span class="p">,</span>
+        <span class="s1">'premmerce_section_callback'</span><span class="p">,</span>
+        <span class="s1">'premmerce'</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Зареєструвати поле в секції "premmerce_section"
+</span>    <span class="nx">add_settings_field</span><span class="p">(</span>
+        <span class="s1">'premmerce_field_input'</span><span class="p">,</span>
+
+        <span class="s1">'Input'</span><span class="p">,</span>
+        <span class="s1">'premmerce_input_callback'</span><span class="p">,</span>
+        <span class="s1">'premmerce'</span><span class="p">,</span>
+        <span class="s1">'premmerce_section'</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s1">'label_for'</span> <span class="o">=&gt;</span> <span class="s1">'premmerce_field_input'</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">premmerce_section_callback</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"&lt;p&gt;Контент секції&lt;/p&gt;"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">premmerce_input_callback</span><span class="p">(</span> <span class="nv">$args</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="nv">$option</span> <span class="o">=</span> <span class="nx">get_option</span><span class="p">(</span> <span class="s1">'premmerce_options'</span> <span class="p">)</span>
+    <span class="cp">?&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"premmerce_options[</span><span class="cp">&lt;?=</span> <span class="nx">esc_attr</span><span class="p">(</span> <span class="nv">$args</span><span class="p">[</span><span class="s1">'label_for'</span><span class="p">]</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="s">]"</span>
+           <span class="na">value=</span><span class="s">"</span><span class="cp">&lt;?=</span> <span class="nv">$option</span><span class="p">[</span> <span class="nv">$args</span><span class="p">[</span><span class="s1">'label_for'</span><span class="p">]</span> <span class="p">]</span> <span class="cp">?&gt;</span><span class="s">"</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;?php</span>
+<span class="p">}</span>
+
+<span class="sd">/**
+ * Реєстрація premmerce_settings_init по хуку admin_init
+ */</span>
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'admin_init'</span><span class="p">,</span> <span class="s1">'premmerce_settings_init'</span> <span class="p">);</span>
+
+</code></pre>
+<blockquote>
+<p>Реєстрація та вивід сторінки налаштувань</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">function</span> <span class="nf">premmerce_options_page</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Додати меню верхнього рівня
+</span>    <span class="nx">add_menu_page</span><span class="p">(</span>
+        <span class="s1">'Premmerce settings'</span><span class="p">,</span>
+        <span class="s1">'Premmerce settings'</span><span class="p">,</span>
+        <span class="s1">'manage_options'</span><span class="p">,</span>
+        <span class="s1">'premmerce-settings'</span><span class="p">,</span>
+        <span class="s1">'premmerce_options_page_html'</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="sd">/**
+ * Зареєструвати premmerce_options_page по хуку admin_menu
+ */</span>
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'admin_menu'</span><span class="p">,</span> <span class="s1">'premmerce_options_page'</span> <span class="p">);</span>
+
+
+<span class="k">function</span> <span class="nf">premmerce_options_page_html</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Перевірка прав доступу
+</span>    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nx">current_user_can</span><span class="p">(</span> <span class="s1">'manage_options'</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Перевірити чи користувач засабмітив налаштування
+</span>    <span class="c1">// Wordpress додає "settings-updated" до $_GET
+</span>    <span class="k">if</span> <span class="p">(</span> <span class="nb">isset</span><span class="p">(</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'settings-updated'</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Додати повідомлення "updated"
+</span>        <span class="nx">add_settings_error</span><span class="p">(</span> <span class="s1">'premmerce_messages'</span><span class="p">,</span> <span class="s1">'premmerce_message'</span><span class="p">,</span> <span class="s1">'Settings Saved'</span><span class="p">,</span> <span class="s1">'updated'</span> <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Показати повідомлення повідомлення error/update
+</span>    <span class="nx">settings_errors</span><span class="p">(</span> <span class="s1">'premmerce_messages'</span> <span class="p">);</span>
+
+    <span class="cp">?&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"wrap"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h1&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">esc_html</span><span class="p">(</span> <span class="nx">get_admin_page_title</span><span class="p">()</span> <span class="p">);</span> <span class="cp">?&gt;</span><span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"options.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+            <span class="cp">&lt;?php</span>
+            <span class="c1">// Поля для безпеки для зареєстрованих налаштувань "premmerce"
+</span>            <span class="nx">settings_fields</span><span class="p">(</span> <span class="s1">'premmerce'</span> <span class="p">);</span>
+
+            <span class="c1">// Вивід секцій налаштувань та їх полів
+</span>            <span class="nx">do_settings_sections</span><span class="p">(</span> <span class="s1">'premmerce'</span> <span class="p">);</span>
+
+            <span class="c1">// Кнопка збереження
+</span>            <span class="nx">submit_button</span><span class="p">(</span> <span class="s1">'Save Settings'</span> <span class="p">);</span>
+            <span class="cp">?&gt;</span>
+        <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;?php</span>
+<span class="p">}</span>
+</code></pre>
+<p>Повний приклад створення сторінки налаштувань. 
+Для створення сторінки налаштувань потрібно зареєструвати налаштування <code>register_setting</code> 
+додати секції  <code>add_settings_section</code> та поля <code>add_settings_field</code> по хуку <code>admin_init</code>, 
+додати сотрінку до меню та вивести налаштування за допомогою <code>settings_fields</code>, <code>do_settings_sections</code>
+та <code>submit_button</code>, збереження налаштувань будуть оброблятися автоматично.</p>
 <h2 id='shortcodes'>Shortcodes</h2>
-<p>todo: write this doc</p>
+<blockquote>
+<p>Створення shortcode</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">function</span> <span class="nf">premmerce_init_shortcodes</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="nx">add_shortcode</span><span class="p">(</span> <span class="s1">'h1'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span> <span class="nv">$atts</span><span class="p">,</span> <span class="nv">$content</span> <span class="p">,</span> <span class="nv">$tag</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">"&lt;</span><span class="si">{</span><span class="nv">$tag</span><span class="si">}</span><span class="s2"> data-attribute='</span><span class="si">{</span><span class="nv">$atts</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]</span><span class="si">}</span><span class="s2">'&gt;"</span> <span class="o">.</span> <span class="nv">$content</span> <span class="o">.</span> <span class="s2">"&lt;/</span><span class="si">{</span><span class="nv">$tag</span><span class="si">}</span><span class="s2">&gt;"</span><span class="p">;</span>
+    <span class="p">}</span> <span class="p">);</span>
+
+
+    <span class="nx">add_shortcode</span><span class="p">(</span><span class="s1">'image'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$atts</span><span class="p">){</span>
+
+        <span class="c1">// Комбінація зі значеннямим за замовчуванням
+</span>        <span class="nv">$atts</span> <span class="o">=</span> <span class="nx">shortcode_atts</span><span class="p">([</span>
+            <span class="s1">'src'</span> <span class="o">=&gt;</span> <span class="kc">null</span>
+        <span class="p">],</span> <span class="nv">$atts</span><span class="p">);</span>
+
+
+        <span class="k">return</span> <span class="s2">"&lt;img src='</span><span class="si">{</span><span class="nv">$atts</span><span class="p">[</span><span class="s1">'src'</span><span class="p">]</span><span class="si">}</span><span class="s2">'&gt;"</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'init'</span><span class="p">,</span> <span class="s1">'premmerce_init_shortcodes'</span> <span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Використання всередині поста</p>
+</blockquote>
+<pre class="highlight plaintext"><code>//double
+[h1 data="home"]HOOOOO[/h1]
+
+//single
+[image src="https://www.w3schools.com/css/paris.jpg"]
+</code></pre>
+<p>Викорестання php коду всередині контенту заборонене, shortcodes дають можливість 
+створювати динамічний контент. Shortcodes - це макроси які дають можливість розширювати контент
+наприклад, додати до поста галерею або  інший динамічний контент.
+Wordpress надає API для створення шоткодів таких як <code>[gallery id=&quot;123&quot; size=&quot;medium&quot;]</code>
+для реєстрації shortcode існує функція <code>add_shortcode</code>, куди передається тег, 
+за яким викликатиметься shortcode та колбек який оброблятиме вивід shortcode. 
+Після створення shortcode буде доступний для виклику всередині контенту(наприклад в описі поста)
+<code>[tag]</code> або <code>[tag attr1=&quot;value1&quot; , attr2=&quot;value2&quot;]Some conetent[/tag]</code>. </p>
+
+<p>Колбек для виводу шоткодів приймає три параметри:</p>
+
+<ul>
+<li>array $atts - Масив атрибутів переданих в шоткод</li>
+<li>string $content = null - Контент всередині тегів</li>
+<li>string $tag = null - Тег шоткоду</li>
+</ul>
+<h3 id='shortcodes-2'>Вбудовані shortcodes</h3>
+<p>За замовчуванням в Wordpress існують такі shortcodes:</p>
+
+<ul>
+<li><code>[caption]</code></li>
+<li><code>[gallery]</code></li>
+<li><code>[audio]</code></li>
+<li><code>[video]</code> </li>
+<li><code>[playlist]</code></li>
+<li><code>[embed]</code></li>
+</ul>
+<h3 id='add_shortcode'>add_shortcode()</h3>
+<p>Створити shortcode</p>
+
+<p><code>add_shortcode(string $tag, callable $func)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $tag</code> - Тег</li>
+<li><code>callable $func</code> - Колбек</li>
+</ul>
+
+<aside class="notice">
+Рекомендується створювати shortcode всередині хука `init`
+</aside>
+<h3 id='remove_shortcode'>remove_shortcode()</h3>
+<p>Видалити shortcode</p>
+
+<p><code>remove_shortcode( string $tag )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $tag</code> - Тег</li>
+</ul>
+<h3 id='shortcode_exists'>shortcode_exists()</h3>
+<p>Перевірка чи shortcode існує</p>
+
+<p><code>shortcode_exists(string $tag)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $tag</code> - Тег</li>
+</ul>
+<h3 id='shortcode_atts'>shortcode_atts()</h3>
+<p>Комбінує введені атрибути з заданими дефолтними значеннями</p>
+
+<p><code>shortcode_atts( array $pairs, array $atts, string $shortcode = &#39;&#39; )</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>array $pairs</code> - Масив ключів та дефолтних значень</li>
+<li><code>array $atts</code> - Атрибути ввндені користувачем</li>
+<li><code>string $shortcode = &#39;&#39;</code> - Назва shortcode</li>
+</ul>
+<h3 id='do_shortcode'>do_shortcode()</h3>
+<p>Викликати шорткод. Можна використовувати для виклику shortcode всередині php файлу.</p>
+
+<p><code>do_shortcode(string $content, bool $ignore_html = false)</code></p>
+
+<p><code>do_shortcode(&#39;[gallery]&#39;)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $content</code> - Контент шорткоду</li>
+<li><code>bool $ignore_html = false</code> Шорткоди всередині HTML будуть пропущені</li>
+</ul>
 <h2 id='taxonomies'>Taxonomies</h2>
 <p>todo: write this doc</p>
 <h2 id='users'>Users</h2>
