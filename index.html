@@ -240,9 +240,6 @@
                     <a href="#internationalization" class="toc-h2 toc-link" data-title="Wordpress">Internationalization</a>
                   </li>
                   <li>
-                    <a href="#roles-and-capabilities" class="toc-h2 toc-link" data-title="Wordpress">Roles and Capabilities</a>
-                  </li>
-                  <li>
                     <a href="#hooks" class="toc-h2 toc-link" data-title="Wordpress">Hooks</a>
                   </li>
                   <li>
@@ -258,16 +255,16 @@
                     <a href="#database-structure" class="toc-h2 toc-link" data-title="Wordpress">Database structure</a>
                   </li>
                   <li>
-                    <a href="#metadata" class="toc-h2 toc-link" data-title="Wordpress">Metadata</a>
-                  </li>
-                  <li>
-                    <a href="#meta-boxes" class="toc-h2 toc-link" data-title="Wordpress">Meta Boxes</a>
-                  </li>
-                  <li>
                     <a href="#posts" class="toc-h2 toc-link" data-title="Wordpress">Posts</a>
                   </li>
                   <li>
                     <a href="#custom-post-types" class="toc-h2 toc-link" data-title="Wordpress">Custom post types</a>
+                  </li>
+                  <li>
+                    <a href="#post-meta" class="toc-h2 toc-link" data-title="Wordpress">Post Meta</a>
+                  </li>
+                  <li>
+                    <a href="#meta-boxes" class="toc-h2 toc-link" data-title="Wordpress">Meta Boxes</a>
                   </li>
                   <li>
                     <a href="#settings-api" class="toc-h2 toc-link" data-title="Wordpress">Settings API</a>
@@ -286,6 +283,12 @@
                   </li>
                   <li>
                     <a href="#users" class="toc-h2 toc-link" data-title="Wordpress">Users</a>
+                  </li>
+                  <li>
+                    <a href="#user-meta" class="toc-h2 toc-link" data-title="Wordpress">User Meta</a>
+                  </li>
+                  <li>
+                    <a href="#roles-and-capabilities" class="toc-h2 toc-link" data-title="Wordpress">Roles and Capabilities</a>
                   </li>
                   <li>
                     <a href="#widgets" class="toc-h2 toc-link" data-title="Wordpress">Widgets</a>
@@ -580,118 +583,7 @@
 <p>Вивести перекладену строку</p>
 </blockquote>
 <pre class="highlight php tab-php"><code>виводить дані - _e($message, $domain)
-</code></pre><h2 id='roles-and-capabilities'>Roles and Capabilities</h2>
-<p><a href="https://codex.wordpress.org/Roles_and_Capabilities">Roles and Capabilities</a><br>
-В Wordpress існують такі поняття як roles та capabilities</p>
-
-<ul>
-<li>roles - ролі користувачів (Administrator, Editor, Customer)</li>
-<li>capabilities - права для ролі (активація плагіну, видалення поста)</li>
-</ul>
-
-<p>Отримати список всіх ролей та прав можна через ф-ію <code>wp_roles()</code></p>
-
-<blockquote>
-<p>current_user_can</p>
-</blockquote>
-<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="k">if</span> <span class="p">(</span> <span class="nx">current_user_can</span><span class="p">(</span> <span class="nv">$capability</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//код
-</span><span class="p">}</span>
-
-<span class="c1">// Перевірка для конкретного поста
-</span><span class="nx">current_user_can</span><span class="p">(</span> <span class="s1">'edit_post'</span><span class="p">,</span> <span class="nv">$post_id</span> <span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>author_can</p>
-</blockquote>
-<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="k">if</span> <span class="p">(</span> <span class="nx">author_can</span><span class="p">(</span> <span class="nv">$post</span><span class="p">,</span> <span class="nv">$capability</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//код
-</span><span class="p">}</span>
-</code></pre>
-<blockquote>
-<p>add_role</p>
-</blockquote>
-<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="c1">// Створення ролі та перевірка прав:
-</span><span class="nx">add_role</span><span class="p">(</span> <span class="nv">$role_name</span><span class="p">,</span> <span class="nv">$display_name</span><span class="p">,</span> <span class="nv">$capabilities</span> <span class="p">);</span>
-
-<span class="nx">add_role</span><span class="p">(</span> <span class="s1">'photo_uploader'</span><span class="p">,</span> <span class="s1">'Photo Uploader'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'organize_gallery'</span> <span class="p">)</span> <span class="p">);</span>
-<span class="k">if</span> <span class="p">(</span> <span class="nx">current_user_can</span><span class="p">(</span> <span class="s1">'organize_gallery'</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// код
-</span><span class="p">}</span>
-</code></pre>
-<blockquote>
-<p>remove_role</p>
-</blockquote>
-<pre class="highlight php tab-php"><code>remove_role( 'photo_uploader' );
-</code></pre><h3 id='functions'>Functions:</h3>
-<p><code>current_user_can(string $capability, int $object_id) : boolean</code><br>
-Перевірка прав для поточного користувача</p>
-
-<p><code>user_can(    int|object $user, string $capability) : boolean</code><br>
-Перевірка прав для користувача  </p>
-
-<p><code>author_can( object|int $post,string $capability ) : boolean</code><br>
-Перевірка прав для автора поста   </p>
-
-<p><code>add_role( string $role_name, string $display_name, array $capabilities ) : WP_Role|null</code><br>
-Додати роль  </p>
-
-<p><code>remove_role( $role_name )</code><br>
-Видалити роль  </p>
-<h3 id='wp_role'>WP_Role</h3>
-<blockquote>
-<p>WP_Role</p>
-</blockquote>
-<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="c1">// get the the role object
-</span><span class="nv">$role_object</span> <span class="o">=</span> <span class="nx">get_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
-
-<span class="c1">// add $cap capability to this role object
-</span><span class="nv">$role_object</span><span class="o">-&gt;</span><span class="na">add_cap</span><span class="p">(</span> <span class="nv">$capability_name</span> <span class="p">);</span>
-
-<span class="c1">// remove $cap capability from this role object
-</span><span class="nv">$role_object</span><span class="o">-&gt;</span><span class="na">remove_cap</span><span class="p">(</span> <span class="nv">$capability_name</span> <span class="p">);</span>
-</code></pre>
-<p>Це клас який представляє роль у вигляді об&#39;єкту і дозволяє проводити маніпуляції з правами.</p>
-
-<blockquote>
-<p>WP_User</p>
-</blockquote>
-<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="c1">// get user by user ID
-</span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_User</span><span class="p">(</span> <span class="nv">$id</span> <span class="p">);</span>
-
-<span class="c1">// or get user by username
-</span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_User</span><span class="p">(</span> <span class="kc">null</span><span class="p">,</span> <span class="nv">$name</span> <span class="p">);</span>
-
-<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">add_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
-<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">remove_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
-<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">set_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
-
-</code></pre><h3 id='wp_user'>WP_User</h3>
-<blockquote>
-<p>Маніпуляція з правами</p>
-</blockquote>
-<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="c1">// check whether the user has a certain capability or role name
-</span><span class="k">if</span> <span class="p">(</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">has_cap</span><span class="p">(</span> <span class="nv">$cap_name</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-<span class="c1">// do something
-</span><span class="p">}</span>
-
-<span class="c1">// add a capability to the user and grant access to that capability
-</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">add_cap</span><span class="p">(</span> <span class="nv">$cap_name</span> <span class="p">);</span>
-
-<span class="c1">// remove a capability from the user
-</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">remove_cap</span><span class="p">(</span> <span class="nv">$cap_name</span> <span class="p">);</span>
-
-<span class="c1">// remove all capabilities from the user
-</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">remove_all_caps</span><span class="p">();</span>
-</code></pre>
-<p>Клас дозволяє керувати ролями та правами для конкретного користувача</p>
-<h2 id='hooks'>Hooks</h2>
+</code></pre><h2 id='hooks'>Hooks</h2>
 <p>Хуки створені для того щоб надати можливість розширювати функціонал вордпрес не змінюючи коду
 ядра. Існують два типи хуків Filter та Action.</p>
 <h2 id='actions'>Actions</h2>
@@ -770,7 +662,96 @@
 <li><code>wp_usermeta</code> - додаткові дані користувачів</li>
 <li><code>wp_links</code> - застаріла таблиця</li>
 </ul>
-<h2 id='metadata'>Metadata</h2>
+<h2 id='posts'>Posts</h2>
+<p>Пости це основний тип даних Wordpress, за допомогою постів реалізовані, сторінки, товари, замовлення, пункти меню, зображення.</p>
+<h2 id='custom-post-types'>Custom post types</h2>
+<blockquote>
+<p>Реєстрація кастомного типу поста</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">custom_post_type</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">register_post_type</span><span class="p">(</span> <span class="s1">'premmerce_video'</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s1">'labels'</span>      <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">'name'</span>          <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Video'</span> <span class="p">),</span>
+                <span class="s1">'singular_name'</span> <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Videos'</span> <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="s1">'public'</span>      <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'has_archive'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'init'</span><span class="p">,</span> <span class="s1">'custom_post_type'</span> <span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Запит кастомного типу</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$args</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'post_type'</span>      <span class="o">=&gt;</span> <span class="s1">'premmerce_video'</span><span class="p">,</span>
+    <span class="s1">'posts_per_page'</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">];</span>
+<span class="nv">$loop</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_Query</span><span class="p">(</span><span class="nv">$args</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$loop</span><span class="o">-&gt;</span><span class="na">have_posts</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nv">$loop</span><span class="o">-&gt;</span><span class="na">the_post</span><span class="p">();</span>
+    <span class="cp">?&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"entry-content"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="nx">the_title</span><span class="p">();</span> <span class="cp">?&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="nx">the_content</span><span class="p">();</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;?php</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Розширення main query для вибірки кастомного типу</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">wporg_add_custom_post_types</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">is_home</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">is_main_query</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'post_type'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'post'</span><span class="p">,</span> <span class="s1">'page'</span><span class="p">,</span> <span class="s1">'premmerce_video'</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$query</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">add_action</span><span class="p">(</span><span class="s1">'pre_get_posts'</span><span class="p">,</span> <span class="s1">'wporg_add_custom_post_types'</span><span class="p">);</span>
+
+</code></pre>
+<p>За замовчуванням в Wordpress 5 типів постів:</p>
+
+<ul>
+<li>post</li>
+<li>page</li>
+<li>attachment</li>
+<li>revision</li>
+<li>nav_menu_item</li>
+<li>custom_css</li>
+<li>customize_changeset</li>
+</ul>
+
+<p>При розробці плагіну часто потрібно реалізувати свої типи постів наприклад, товари для e-commerce сайтів
+відео для сайтів з оглядами. Для того щоб додати свій потрібно зареєструвати новий post_type за допомогою <code>register_post_type</code>.
+Новий тип за замовчуванням не буде автоматично вибиратися з бази на сторінці постів, але цю поведінку можна змінити шляхом
+розширення головного запиту (main query) (див. приклад праворуч). </p>
+<h3 id='register_post_type'>register_post_type()</h3>
+<p>Реєстрація типа поста</p>
+
+<p><code>register_post_type( string $post_type, array|string $args = array() )</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>string $post_type</code> - Унікальний ключ типу<br>
+<code>array $args</code> - Масив з описом типу(<a href="https://developer.wordpress.org/reference/functions/register_post_type/">register post type</a>)  </p>
+
+<aside class="warning">
+Функція register_post_type() повинна викликатись перед `admin_init` та після `after_setup_theme` хуків.
+Найкращий варіант використовувати хук `init`.
+</aside>
+
+<aside class="warning">
+Для того щоб уникнути конфліктів між плагінами ідентифікатор повинен бути унікальним
+</aside>
+<h2 id='post-meta'>Post Meta</h2>
 <p>Метадата додає можливість додати кастомні дані для поста. </p>
 <h3 id=''>Функції для роботи з метаданими.</h3><h3 id='add_post_meta'>add_post_meta()</h3>
 <p>Додати поле до поста</p>
@@ -948,93 +929,6 @@ array - масив ключів</p>
 <code>string $id</code> - id мета бокса (використовується як html атрибут &#39;id&#39; )<br>
 <code>string|array|WP_Screen $screen = null</code> - Скріни на яких показувати контент (такі як post_type, &#39;link&#39;, or &#39;comment&#39;). ID, WP_Screen або масив з id скрінів.<br>
 <code>string $context = &#39;advanced&#39;</code> - Де відображати &#39;normal&#39;, &#39;side&#39;, та &#39;advanced&#39;.  </p>
-<h2 id='posts'>Posts</h2>
-<p>Пости це основний тип даних Wordpress, за допомогою постів реалізовані, сторінки, товари, замовлення, пункти меню, зображення.</p>
-<h2 id='custom-post-types'>Custom post types</h2>
-<blockquote>
-<p>Реєстрація кастомного типу поста</p>
-</blockquote>
-<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="k">function</span> <span class="nf">custom_post_type</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">register_post_type</span><span class="p">(</span> <span class="s1">'premmerce_video'</span><span class="p">,</span>
-        <span class="p">[</span>
-            <span class="s1">'labels'</span>      <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="s1">'name'</span>          <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Video'</span> <span class="p">),</span>
-                <span class="s1">'singular_name'</span> <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Videos'</span> <span class="p">),</span>
-            <span class="p">],</span>
-            <span class="s1">'public'</span>      <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="s1">'has_archive'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="p">]</span>
-    <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'init'</span><span class="p">,</span> <span class="s1">'custom_post_type'</span> <span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>Запит кастомного типу</p>
-</blockquote>
-<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="nv">$args</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">'post_type'</span>      <span class="o">=&gt;</span> <span class="s1">'premmerce_video'</span><span class="p">,</span>
-    <span class="s1">'posts_per_page'</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
-<span class="p">];</span>
-<span class="nv">$loop</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_Query</span><span class="p">(</span><span class="nv">$args</span><span class="p">);</span>
-<span class="k">while</span> <span class="p">(</span><span class="nv">$loop</span><span class="o">-&gt;</span><span class="na">have_posts</span><span class="p">())</span> <span class="p">{</span>
-    <span class="nv">$loop</span><span class="o">-&gt;</span><span class="na">the_post</span><span class="p">();</span>
-    <span class="cp">?&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"entry-content"</span><span class="nt">&gt;</span>
-        <span class="cp">&lt;?php</span> <span class="nx">the_title</span><span class="p">();</span> <span class="cp">?&gt;</span>
-        <span class="cp">&lt;?php</span> <span class="nx">the_content</span><span class="p">();</span> <span class="cp">?&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="cp">&lt;?php</span>
-<span class="p">}</span>
-<span class="cp">?&gt;</span>
-</code></pre>
-<blockquote>
-<p>Розширення main query для вибірки кастомного типу</p>
-</blockquote>
-<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="k">function</span> <span class="nf">wporg_add_custom_post_types</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">is_home</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">is_main_query</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'post_type'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'post'</span><span class="p">,</span> <span class="s1">'page'</span><span class="p">,</span> <span class="s1">'premmerce_video'</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nv">$query</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nx">add_action</span><span class="p">(</span><span class="s1">'pre_get_posts'</span><span class="p">,</span> <span class="s1">'wporg_add_custom_post_types'</span><span class="p">);</span>
-
-</code></pre>
-<p>За замовчуванням в Wordpress 5 типів постів:</p>
-
-<ul>
-<li>post</li>
-<li>page</li>
-<li>attachment</li>
-<li>revision</li>
-<li>menu</li>
-</ul>
-
-<p>При розробці плагіну часто потрібно реалізувати свої типи постів наприклад, товари для e-commerce сайтів
-відео для сайтів з оглядами. Для того щоб додати свій потрібно зареєструвати новий post_type за допомогою <code>register_post_type</code>.
-Новий тип за замовчуванням не буде автоматично вибиратися з бази на сторінці постів, але цю поведінку можна змінити шляхом
-розширення головного запиту (main query) (див. приклад праворуч). </p>
-<h3 id='register_post_type'>register_post_type()</h3>
-<p>Реєстрація типа поста</p>
-
-<p><code>register_post_type( string $post_type, array|string $args = array() )</code></p>
-
-<p><strong><em>Params:</em></strong><br>
-<code>string $post_type</code> - Унікальний ключ типу<br>
-<code>array $args</code> - Масив з описом типу(<a href="https://developer.wordpress.org/reference/functions/register_post_type/">register post type</a>)  </p>
-
-<aside class="warning">
-Функція register_post_type() повинна викликатись перед `admin_init` та після `after_setup_theme` хуків.
-Найкращий варіант використовувати хук `init`.
-</aside>
-
-<aside class="warning">
-Для того щоб уникнути конфліктів між плагінами ідентифікатор повинен бути унікальним
-</aside>
 <h2 id='settings-api'>Settings API</h2>
 <p>Settings API дозволяє напів автоматично створювати та обробляти сторінки налаштувань.
 API дає можливість створювати сторінки, секції на сторінках та поля в секціях.</p>
@@ -1149,7 +1043,7 @@ API дає можливість створювати сторінки, секц�
 <li><code>string $setting = &#39;&#39;</code> - Slug налаштувань</li>
 <li><code>boolean $sanitize = false</code> - Очистити повідомлення</li>
 </ul>
-<h3 id='settings_errors'>settings_errors</h3>
+<h3 id='settings_errors'>settings_errors()</h3>
 <p>Вивести повідомлення</p>
 
 <p><code>settings_errors( string $setting = &#39;&#39;, bool $sanitize = false, bool $hide_on_update = false )</code></p>
@@ -1490,9 +1384,365 @@ Wordpress надає API для створення шоткодів таких �
 <li><code>bool $ignore_html = false</code> Шорткоди всередині HTML будуть пропущені</li>
 </ul>
 <h2 id='taxonomies'>Taxonomies</h2>
-<p>todo: write this doc</p>
+<p>Таксономія це спосіб групувати елементи.
+Наприклад для того щоб погрупувати пости по категоріях використовуються таксономії.
+Інші приклади таксономій в Wordpress + Woocommerce:</p>
+
+<ul>
+<li>теги</li>
+<li>категорії</li>
+<li>атрибути</li>
+<li>бренди</li>
+</ul>
+
+<p>При створеннні нової таксономії вона автоматично додається до меню.
+На сторінці таксономії можна керувати термами (значеннями) таксономії (створювати, видаляти, редагувати).
+Та до сторінки поста в адмінці додається вибір термів таксономії.</p>
+
+<blockquote>
+<p>Реєстрація таксономії</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">post_group_init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// create a new taxonomy
+</span>    <span class="nx">register_taxonomy</span><span class="p">(</span>
+        <span class="s1">'post_group'</span><span class="p">,</span>
+        <span class="s1">'post'</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s1">'label'</span>        <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Post group'</span> <span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">add_action</span><span class="p">(</span> <span class="s1">'init'</span><span class="p">,</span> <span class="s1">'post_group_init'</span> <span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Запит постів по таксономії
+<code>php
+&lt;?php
+$query = new WP_Query( array( &#39;post_group&#39; =&gt; &#39;archive&#39; ) );
+</code></p>
+</blockquote>
+<h3 id='register_taxonomy'>register_taxonomy()</h3>
+<p>Зареєструвати нову таксономію</p>
+
+<p><code>register_taxonomy(string $taxonomy, $object_type, $args)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $taxonomy</code> - Назва таксономії</li>
+<li><code>$object_type</code> - Тип поста (вбудований або кастомний)</li>
+<li><code>$args</code> - Аргументи (див. <a href="https://codex.wordpress.org/Function_Reference/register_taxonomy">register taxonomy</a>)</li>
+</ul>
+<h3 id='wp_set_object_terms'>wp_set_object_terms()</h3>
+<p>Встановити терми для об&#39;єкта, замінить всі терми заданої таксономії для об&#39;єкта з переданим id.</p>
+
+<p><code>wp_set_object_terms($object_id, $terms, $taxonomy, $append)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>int $object_id</code> - id поста</li>
+<li><code>array|int|string $terms</code> - slud, id терма або масив (slug або id)</li>
+<li><code>array| string $taxonomy</code> - назва таксономії</li>
+<li><code>boolean $append = false</code>- замінити терми якщо false, чи додати нові якщо true</li>
+</ul>
+<h3 id='get_terms'>get_terms()</h3>
+<p>Отримати терми</p>
+
+<p><code>get_terms(string|array $args = array(), array $deprecated = &#39;&#39;)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string|array $args = array()</code> - Аргументи для запиту(див. <a href="https://developer.wordpress.org/reference/classes/wp_term_query/__construct/">WP_Term_Query::__construct()</a> )</li>
+<li><code>array $deprecated = &#39;&#39;</code> - Для підтримки старого коду</li>
+</ul>
 <h2 id='users'>Users</h2>
-<p>todo: write this doc</p>
+<blockquote>
+<p>Створення користувача</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Перевірити чи не зайняте ім'я користувача
+</span><span class="nv">$user_id</span> <span class="o">=</span> <span class="nx">username_exists</span><span class="p">(</span><span class="nv">$user_name</span><span class="p">);</span>
+
+<span class="c1">// Перевірити чи email не належить існуючому користувачу
+</span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$user_id</span> <span class="o">&amp;&amp;</span> <span class="nx">email_exists</span><span class="p">(</span><span class="nv">$user_email</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// Згенерити пароль
+</span>    <span class="nv">$random_password</span> <span class="o">=</span> <span class="nx">wp_generate_password</span><span class="p">(</span>
+        <span class="nv">$length</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="nv">$include_standard_special_chars</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="p">);</span>
+<span class="c1">// створити користувача
+</span>    <span class="nv">$user_id</span> <span class="o">=</span> <span class="nx">wp_create_user</span><span class="p">(</span>
+        <span class="nv">$user_name</span><span class="p">,</span>
+        <span class="nv">$random_password</span><span class="p">,</span>
+        <span class="nv">$user_email</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Оновлення користувача</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$user_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="nv">$website</span> <span class="o">=</span> <span class="s1">'https://premmerce.com'</span><span class="p">;</span>
+
+<span class="nv">$user_id</span> <span class="o">=</span> <span class="nx">wp_update_user</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="s1">'ID'</span>       <span class="o">=&gt;</span> <span class="nv">$user_id</span><span class="p">,</span>
+        <span class="s1">'user_url'</span> <span class="o">=&gt;</span> <span class="nv">$website</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">is_wp_error</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// error
+</span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// success
+</span><span class="p">}</span>
+</code></pre><h3 id='wp_create_user'>wp_create_user()</h3>
+<p>Створити нового користувача  </p>
+
+<p><code>wp_create_user(string $username, string $password, string $email = &#39;&#39;)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $username</code> - Ім&#39;я</li>
+<li><code>string $password</code> - Пароль</li>
+<li><code>string $email = &#39;&#39;</code> - Email</li>
+</ul>
+
+<p><strong><em>Return:</em></strong></p>
+
+<ul>
+<li><code>int|WP_Error</code> - Id створеного користувача або об&#39;єкт WP_Error, 
+якщо користувач не може бути створений</li>
+</ul>
+<h3 id='wp_insert_user'>wp_insert_user()</h3>
+<p>Записати користувача в БД</p>
+
+<p><code>wp_insert_user(array|object|WP_User $userdata)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>array|object|WP_User $userdata</code> - Дані користувача
+
+<ul>
+<li><code>ID</code> - ID користувача, якщо передано користувача буде оновлено.</li>
+<li><code>user_pass</code> - пароль.</li>
+<li><code>user_login</code> - Username для авторизації.</li>
+<li><code>user_nicename</code> - URL-friendly ім&#39;я користувача.</li>
+<li><code>user_url</code> - URL.</li>
+<li><code>user_email</code> - Email.</li>
+<li><code>display_name</code> - Ім&#39;я для виводу. Default username.</li>
+<li><code>nickname</code> - Нікнейм. Default username.</li>
+<li><code>first_name</code> - Ім&#39;я.</li>
+<li><code>last_name</code> - По батькові.</li>
+<li><code>description</code> - Біографія користувача.</li>
+<li><code>rich_editing</code> - Включити rich-editor для користувача.</li>
+<li><code>comment_shortcuts</code> - Включити keyboard shortcuts для модерації коментів. Default false.</li>
+<li><code>admin_color</code> - кольорова схема адмінки для користувача. Default &#39;fresh&#39;.</li>
+<li><code>use_ssl</code> - Користувач повинем заходити в адмінку через https. Default false.</li>
+<li><code>user_registered</code> - Дата реєстрації. Формат is &#39;Y-m-d H:i:s&#39;.</li>
+<li><code>show_admin_bar_front</code> - Чи відображати адмін панель на фронті</li>
+<li><code>role</code> - роль користувача.</li>
+<li><code>locale</code> - локаль користувача.</li>
+</ul></li>
+</ul>
+<h3 id='wp_update_user'>wp_update_user()</h3>
+<p>Оновити користувача</p>
+
+<p><code>wp_update_user(array|object|WP_User $userdata)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>array|object|WP_User</code> - дані користувача</li>
+</ul>
+<h3 id='wp_delete_user'>wp_delete_user()</h3>
+<p>Видалити користувача та мета дані</p>
+
+<p><code>wp_delete_user(int $id, int $reassign = null)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>int $id</code> - id користувача</li>
+<li><code>int $reassign</code> - id користувача на якого переасайнити пости ітп.</li>
+</ul>
+<h2 id='user-meta'>User Meta</h2>
+<p>Користувачі як і пости можуть мати свої мета дані (кастомні поля) </p>
+<h3 id='add_user_meta'>add_user_meta()</h3>
+<p>Додати мета поле для користувача</p>
+
+<p><code>add_user_meta(int $user_id, string $meta_key, mixed $meta_value, bool $unique = false)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>int $user_id</code> - id</li>
+<li><code>string $meta_key</code> - ключ</li>
+<li><code>mixed $meta_value</code> - значення</li>
+<li><code>bool $unique = false</code> - Чи такий самий ключ не повинен додаватись</li>
+</ul>
+<h3 id='update_user_meta'>update_user_meta()</h3>
+<p>Оновити метадані користувача</p>
+
+<p><code>update_user_meta(int $user_id, string $meta_key, mixed $meta_value, mixed $prev_value = &#39;&#39;)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>int $user_id</code> - Id</li>
+<li><code>string $meta_key</code> - Ключ<br></li>
+<li><code>mixed $meta_value</code> - Значення</li>
+<li><code>mixed $prev_value = &#39;&#39;</code> - Попереднє значення, для перевірки перед видаленням</li>
+</ul>
+
+<p><strong><em>Return:</em></strong></p>
+
+<ul>
+<li><code>int|bool</code> - Мета id якщо ключ не існує, true - при оновленні існуючого, false при невдачі</li>
+</ul>
+<h3 id='delete_user_meta'>delete_user_meta()</h3>
+<p>Видалити мета дані користувача</p>
+
+<p><code>delete_user_meta(int $user_id, string $meta_key, mixed $meta_value = &#39;&#39;)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>int $user_id</code> - id</li>
+<li><code>string $meta_key</code> - Ключ</li>
+<li><code>mixed $meta_value = &#39;&#39;</code> - Значення</li>
+</ul>
+<h3 id='get_user_meta'>get_user_meta()</h3>
+<p>Отримати мета дані користувача</p>
+
+<p><code>get_user_meta(int $user_id, string $key = &#39;&#39;, bool $single = false)</code></p>
+
+<p><strong><em>Params</em></strong></p>
+
+<ul>
+<li><code>int $user_id</code> - id користувача</li>
+<li><code>string $key = &#39;&#39;</code> - ключ, за замовчуванням дістаються дані для всіх ключів</li>
+<li><code>bool $single = false</code> - повернути одне значення.</li>
+</ul>
+<h2 id='roles-and-capabilities'>Roles and Capabilities</h2>
+<p><a href="https://codex.wordpress.org/Roles_and_Capabilities">Roles and Capabilities</a><br>
+В Wordpress існують такі поняття як roles та capabilities</p>
+
+<ul>
+<li>roles - ролі користувачів (Administrator, Editor, Customer)</li>
+<li>capabilities - права для ролі (активація плагіну, видалення поста)</li>
+</ul>
+
+<p>Отримати список всіх ролей та прав можна через ф-ію <code>wp_roles()</code></p>
+
+<blockquote>
+<p>current_user_can</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nx">current_user_can</span><span class="p">(</span> <span class="nv">$capability</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//код
+</span><span class="p">}</span>
+
+<span class="c1">// Перевірка для конкретного поста
+</span><span class="nx">current_user_can</span><span class="p">(</span> <span class="s1">'edit_post'</span><span class="p">,</span> <span class="nv">$post_id</span> <span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>author_can</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nx">author_can</span><span class="p">(</span> <span class="nv">$post</span><span class="p">,</span> <span class="nv">$capability</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//код
+</span><span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>add_role</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Створення ролі та перевірка прав:
+</span><span class="nx">add_role</span><span class="p">(</span> <span class="nv">$role_name</span><span class="p">,</span> <span class="nv">$display_name</span><span class="p">,</span> <span class="nv">$capabilities</span> <span class="p">);</span>
+
+<span class="nx">add_role</span><span class="p">(</span> <span class="s1">'photo_uploader'</span><span class="p">,</span> <span class="s1">'Photo Uploader'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'organize_gallery'</span> <span class="p">)</span> <span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nx">current_user_can</span><span class="p">(</span> <span class="s1">'organize_gallery'</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// код
+</span><span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>remove_role</p>
+</blockquote>
+<pre class="highlight php tab-php"><code>remove_role( 'photo_uploader' );
+</code></pre><h3 id='functions'>Functions:</h3>
+<p><code>current_user_can(string $capability, int $object_id) : boolean</code><br>
+Перевірка прав для поточного користувача</p>
+
+<p><code>user_can(    int|object $user, string $capability) : boolean</code><br>
+Перевірка прав для користувача  </p>
+
+<p><code>author_can( object|int $post,string $capability ) : boolean</code><br>
+Перевірка прав для автора поста   </p>
+
+<p><code>add_role( string $role_name, string $display_name, array $capabilities ) : WP_Role|null</code><br>
+Додати роль  </p>
+
+<p><code>remove_role( $role_name )</code><br>
+Видалити роль  </p>
+<h3 id='wp_role'>WP_Role</h3>
+<blockquote>
+<p>WP_Role</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// get the the role object
+</span><span class="nv">$role_object</span> <span class="o">=</span> <span class="nx">get_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
+
+<span class="c1">// add $cap capability to this role object
+</span><span class="nv">$role_object</span><span class="o">-&gt;</span><span class="na">add_cap</span><span class="p">(</span> <span class="nv">$capability_name</span> <span class="p">);</span>
+
+<span class="c1">// remove $cap capability from this role object
+</span><span class="nv">$role_object</span><span class="o">-&gt;</span><span class="na">remove_cap</span><span class="p">(</span> <span class="nv">$capability_name</span> <span class="p">);</span>
+</code></pre>
+<p>Це клас який представляє роль у вигляді об&#39;єкту і дозволяє проводити маніпуляції з правами.</p>
+
+<blockquote>
+<p>WP_User</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// get user by user ID
+</span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_User</span><span class="p">(</span> <span class="nv">$id</span> <span class="p">);</span>
+
+<span class="c1">// or get user by username
+</span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WP_User</span><span class="p">(</span> <span class="kc">null</span><span class="p">,</span> <span class="nv">$name</span> <span class="p">);</span>
+
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">add_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">remove_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">set_role</span><span class="p">(</span> <span class="nv">$role_name</span> <span class="p">);</span>
+
+</code></pre><h3 id='wp_user'>WP_User</h3>
+<blockquote>
+<p>Маніпуляція з правами</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// check whether the user has a certain capability or role name
+</span><span class="k">if</span> <span class="p">(</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">has_cap</span><span class="p">(</span> <span class="nv">$cap_name</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+<span class="c1">// do something
+</span><span class="p">}</span>
+
+<span class="c1">// add a capability to the user and grant access to that capability
+</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">add_cap</span><span class="p">(</span> <span class="nv">$cap_name</span> <span class="p">);</span>
+
+<span class="c1">// remove a capability from the user
+</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">remove_cap</span><span class="p">(</span> <span class="nv">$cap_name</span> <span class="p">);</span>
+
+<span class="c1">// remove all capabilities from the user
+</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">remove_all_caps</span><span class="p">();</span>
+</code></pre>
+<p>Клас дозволяє керувати ролями та правами для конкретного користувача</p>
 <h2 id='widgets'>Widgets</h2>
 <p>todo: write this doc</p>
 <h1 id='woocommerce'>Woocommerce</h1><h2 id='hooks'>Hooks</h2>
