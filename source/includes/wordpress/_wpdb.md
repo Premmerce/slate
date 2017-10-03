@@ -55,6 +55,7 @@ foreach ( $fives_drafts as $fives_draft )
 ```
 
 >insert
+
 ```php
 <?php
 global $wpdb;
@@ -155,13 +156,18 @@ WPDB - Це об'єкт для абстракції доступу до БД
 $wpdb - доступний як глобальна змінна і його можна використовувати в будь якій частині коду.
 
 
+<aside class="warning">
+    Назву таблиці в запитах необхідно брати з об'єкту $wpdb для вбудованих таблиць (пр. $wpdb->posts), 
+    та `$wpdb->prefix . 'table_name'` для кастомних таблиць
+</aside>
+
 ### get_var()
 
 Отримати одну змінну з БД
 
 `$wpdb->get_var( $query, $column_offset, $row_offset )`
 
-***Params***
+***Params:***
 
 * `string $query` - SQL
 * `int $column_offset = 0` - номер колонки
@@ -173,7 +179,7 @@ $wpdb - доступний як глобальна змінна і його мо
 
 `$wpdb->get_row($query, $output_type, $row_offset)`
 
-***Params***
+***Params:***
 
 * `string $query` - SQL
 * `string $output_type` - тип який буде повернено, одна з констант:
@@ -189,7 +195,7 @@ $wpdb - доступний як глобальна змінна і його мо
 
 `$wpdb->get_col($query, $column_offset)`
 
-***Params***
+***Params:***
 
 * `string $query` - SQL
 * `int $column_offset = 0` - номер колонки
@@ -200,7 +206,7 @@ $wpdb - доступний як глобальна змінна і його мо
 
 `$wpdb->get_results($query, $output_type)`
 
-***Params***
+***Params:***
 
 * `string $query` - SQL
 * `string $output_type` - тип який буде повернено, одна з констант:
@@ -215,7 +221,7 @@ $wpdb - доступний як глобальна змінна і його мо
 
 `$wpdb->insert($table, $data, $format)`
 
-***Params***
+***Params:***
 
 * `string $table` - таблиця
 * `array $data` - дані для вставки (колонка=>значення)
@@ -228,7 +234,7 @@ $wpdb - доступний як глобальна змінна і його мо
 
 `$wpdb->replace( $table, $data, $format )`
 
-***Params***
+***Params:***
 
 * `string $table` - таблиця
 * `array $data` - дані для вставки (колонка=>значення)
@@ -241,7 +247,7 @@ $wpdb - доступний як глобальна змінна і його мо
 `$wpdb->update($table, $data, $where, $format = null, $where_format = null )`
 
 
-***Params***
+***Params:***
 
 * `string $table` - таблиця
 * `array $data` - дані для вставки (колонка=>значення)
@@ -256,7 +262,7 @@ $wpdb - доступний як глобальна змінна і його мо
 
 `$wpdb->delete($table, $where, $where_format = null)`
 
-***Params***
+***Params:***
 
 * `string $table` - таблиця
 * `array $where` - дані для умови where (колонка=>значення)
@@ -268,7 +274,7 @@ $wpdb - доступний як глобальна змінна і його мо
 
 `$wpdb->query(string $query)`
 
-***Params***
+***Params:***
 
 * `string $query` - SQL
 
@@ -284,7 +290,7 @@ $wpdb - доступний як глобальна змінна і його мо
 `$wpdb->prepare( $query , value_parameter[, value_parameter ... ] )`
 
 
-***Params***
+***Params:***
 
 * `string $query` - SQL
 * `int|string|array value_parameter` - параметри
@@ -318,7 +324,7 @@ $wpdb - доступний як глобальна змінна і його мо
 * `$siteid` - Id поточної мережі. WordPress зараз підтримує тільки одну мережу на multi-site установку, але це зміниться в майбутньому.
 
 ### Tables
-The WordPress database tables are easily referenced in the wpdb class.
+Назви таблиць
 
 * `$posts` - Пости.
 * `$postmeta` - Мета дані поста.
