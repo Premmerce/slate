@@ -19,6 +19,8 @@ includes:
   - wordpress/filters_reference
   - wordpress/database
   - wordpress/metadata
+  - wordpress/meta_boxes
+  - wordpress/posts
   - wordpress/settings
   - wordpress/shortcodes
   - wordpress/taxonomies
