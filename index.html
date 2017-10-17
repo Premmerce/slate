@@ -568,7 +568,8 @@
 <p><code>wp_nonce_url()</code> - Retrieve URL with nonce added to URL query.</p>
 <h2 id='internationalization'>Internationalization</h2>
 <p>Переклади для плагіну повинні мати простір імен(домен). 
-Самі файли перекладів не підгружаються автоматично їх потрібно загрузити по action &#39;init&#39;</p>
+Самі файли перекладів не підгружаються автоматично їх потрібно загрузити по action &#39;init&#39;, 
+за допомогою функції <code>load_plugin_textdomain</code></p>
 
 <blockquote>
 <p>Загрузка файлів перекладу</p>
@@ -594,7 +595,12 @@
 <p>Вивести перекладену строку</p>
 </blockquote>
 <pre class="highlight php tab-php"><code>виводить дані - _e($message, $domain)
-</code></pre><h2 id='hooks'>Hooks</h2>
+</code></pre><h3 id=''>Процес перекладу</h3>
+<p>В корні плагіну створюємо папку languages, через poedit створюємо файли перекладів для кожної мови окремо.
+Файли перекладів повинні мати таке саме ім&#39;я як плагін </p>
+
+<p><a href="'http://www.gsy-design.com/how-to-generate-a-pot-file-using-poedit/'">Інструкція по poedit</a></p>
+<h2 id='hooks'>Hooks</h2>
 <p>Хуки створені для того щоб надати можливість розширювати функціонал вордпрес не змінюючи коду
 ядра. Існують два типи хуків Filter та Action.</p>
 <h2 id='actions'>Actions</h2>
