@@ -687,14 +687,24 @@
 </blockquote>
 <pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="k">function</span> <span class="nf">custom_post_type</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">register_post_type</span><span class="p">(</span> <span class="s1">'premmerce_video'</span><span class="p">,</span>
+    <span class="nx">register_post_type</span><span class="p">(</span><span class="s1">'premmerce_video'</span><span class="p">,</span>
         <span class="p">[</span>
-            <span class="s1">'labels'</span>      <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="s1">'name'</span>          <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Video'</span> <span class="p">),</span>
-                <span class="s1">'singular_name'</span> <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Videos'</span> <span class="p">),</span>
+            <span class="s1">'labels'</span>              <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">'name'</span>          <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'Video'</span><span class="p">),</span>
+                <span class="s1">'singular_name'</span> <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'Videos'</span><span class="p">),</span>
             <span class="p">],</span>
-            <span class="s1">'public'</span>      <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="s1">'has_archive'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'public'</span>              <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'has_archive'</span>         <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'show_ui'</span>             <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'show_in_menu'</span>        <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'menu_position'</span>       <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">'menu_icon'</span>           <span class="o">=&gt;</span> <span class="s1">'dashicons-admin-page'</span><span class="p">,</span>
+            <span class="s1">'show_in_admin_bar'</span>   <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'show_in_nav_menus'</span>   <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'can_export'</span>          <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'has_archive'</span>         <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s1">'exclude_from_search'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s1">'publicly_queryable'</span>  <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
         <span class="p">]</span>
     <span class="p">);</span>
 <span class="p">}</span>
