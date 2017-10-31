@@ -234,6 +234,9 @@
                     <a href="#administration-menu" class="toc-h2 toc-link" data-title="Wordpress">Administration menu</a>
                   </li>
                   <li>
+                    <a href="#assets" class="toc-h2 toc-link" data-title="Wordpress">Assets</a>
+                  </li>
+                  <li>
                     <a href="#validation-and-security" class="toc-h2 toc-link" data-title="Wordpress">Validation and Security</a>
                   </li>
                   <li>
@@ -484,6 +487,127 @@
 
 <p><em>Параметри:</em><br>
 <code>string $menu_slug</code> - slug сторінки </p>
+<h2 id='assets'>Assets</h2><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Зареєструвати скрипт
+</span><span class="nx">wp_register_script</span><span class="p">(</span> <span class="s1">'my_plugin_script'</span><span class="p">,</span> <span class="s1">'path/to/myscript.js'</span> <span class="p">);</span>
+
+<span class="c1">// Локалізувати скрипт
+</span><span class="nv">$translation_array</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'some_string'</span> <span class="o">=&gt;</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Some string to translate'</span><span class="p">,</span> <span class="s1">'my-plugin-domain'</span> <span class="p">),</span>
+    <span class="s1">'value'</span> <span class="o">=&gt;</span> <span class="s1">'10'</span>
+<span class="p">);</span>
+
+<span class="nx">wp_localize_script</span><span class="p">(</span> <span class="s1">'my_plugin_script'</span><span class="p">,</span> <span class="s1">'object_name'</span><span class="p">,</span> <span class="nv">$translation_array</span> <span class="p">);</span>
+
+<span class="c1">// Додати скрипт з локалізованими даними.
+</span><span class="nx">wp_enqueue_script</span><span class="p">(</span> <span class="s1">'my_plugin_script'</span> <span class="p">);</span>
+<span class="cp">?&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">object_name</span><span class="p">.</span><span class="nx">value</span> <span class="p">);</span> <span class="c1">// 10</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre>
+<p>Вордрес надає функці для коректної загрузки CSS та JS. Основні з них 
+<code>wp_register_script</code>, <code>wp_enqueue_script</code>, <code>wp_register_style</code> та <code>wp_enqueue_style</code>.
+Також в ядрі вордпресу є вже зареєстровані скрипти такі як jquery і.т.п.
+<a href="https://developer.wordpress.org/reference/functions/wp_register_script/#core-registered-scripts">Список скриптів</a></p>
+<h3 id='wp_register_script'>wp_register_script</h3>
+<p>Зареєструвати новий скрипт, для того щоб потім додатии його в чергу на вивід</p>
+
+<p><code>
+wp_register_script( 
+    string $handle, 
+    string $src, 
+    array $deps = array(), 
+    string|bool|null $ver = false, 
+    bool $in_footer = false )
+</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $handle</code> - Унікальна назва скрипта<br></li>
+<li><code>string $src</code> - Повний URL<br></li>
+<li><code>array $deps = array()</code> - Залежності<br></li>
+<li><code>string|bool|null $ver = false</code> - Версія</li>
+<li><code>bool $in_footer = false</code> - Підключати скрипт в футері</li>
+</ul>
+<h3 id='wp_enqueue_script'>wp_enqueue_script</h3>
+<p>Зареєструвати скрипт та додати в чергу на вивід</p>
+
+<p><code>wp_enqueue_script( 
+    string $handle, 
+    string $src = &#39;&#39;, 
+    array $deps = array(), 
+    string|bool|null $ver = false, 
+    bool $in_footer = false 
+)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $handle</code> - Унікальна назва скрипта<br></li>
+<li><code>string $src</code> - Повний URL<br></li>
+<li><code>array $deps = array()</code> - Залежності<br></li>
+<li><code>string|bool|null $ver = false</code> - Версія</li>
+<li><code>bool $in_footer = false</code> - Підключати скрипт в футері</li>
+</ul>
+<h3 id='wp_register_style'>wp_register_style</h3>
+<p>Зареєструвати CSS</p>
+
+<p><code>wp_register_style( 
+    string $handle, 
+    string $src, 
+    array $deps = array(), 
+    string|bool|null $ver = false, 
+    string $media = &#39;all&#39; 
+)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $handle</code> - Унікальна назва стилю<br></li>
+<li><code>string $src</code> - Повний URL<br></li>
+<li><code>array $deps = array()</code> - Залежності<br></li>
+<li><code>string|bool|null $ver = false</code> - Версія</li>
+<li><code>string $media = &#39;all&#39;</code> - Тип медіа(&#39;all&#39;, &#39;print&#39;, &#39;screen&#39;) або медіа запити (orientation: portrait)&#39; та &#39;(max-width: 640px)</li>
+</ul>
+<h3 id='wp_enqueue_style'>wp_enqueue_style</h3>
+<p>Зареєструвати CSS та додати в чергу </p>
+
+<p><code>wp_enqueue_style( 
+    string $handle, 
+    string $src = &#39;&#39;, 
+    array $deps = array(), 
+    string|bool|null $ver = false, 
+    string $media = &#39;all&#39; 
+)</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $handle</code> - Унікальна назва стилю<br></li>
+<li><code>string $src</code> - Повний URL<br></li>
+<li><code>array $deps = array()</code> - Залежності<br></li>
+<li><code>string|bool|null $ver = false</code> - Версія</li>
+<li><code>string $media = &#39;all&#39;</code> - Тип медіа(&#39;all&#39;, &#39;print&#39;, &#39;screen&#39;) або медіа запити (orientation: portrait)&#39; та &#39;(max-width: 640px)</li>
+</ul>
+<h3 id='wp_localize_script'>wp_localize_script</h3>
+<p>Локалізація скрипта, також може бути використано для передачі значення з php коду в js</p>
+
+<p><code>wp_localize_script( 
+    string $handle, 
+    string $object_name, 
+    array $l10n 
+);
+</code></p>
+
+<p><strong><em>Params:</em></strong></p>
+
+<ul>
+<li><code>string $handle</code> - Назва скрипта</li>
+<li><code>string $object_name</code> - Назва js обєкту</li>
+<li><code>array $l10n</code> - Масив даних які будуть передані в js об&#39;єкт</li>
+</ul>
 <h2 id='validation-and-security'>Validation and Security</h2><h3 id='php-functions'>PHP functions</h3>
 <ul>
 <li><code>isset()</code> та <code>empty()</code> перевірка чи змінна існує і не порожня</li>
@@ -702,7 +826,6 @@
             <span class="s1">'show_in_admin_bar'</span>   <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
             <span class="s1">'show_in_nav_menus'</span>   <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
             <span class="s1">'can_export'</span>          <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="s1">'has_archive'</span>         <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
             <span class="s1">'exclude_from_search'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span>
             <span class="s1">'publicly_queryable'</span>  <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
         <span class="p">]</span>
