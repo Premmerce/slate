@@ -264,7 +264,10 @@
                     <a href="#custom-post-types" class="toc-h2 toc-link" data-title="Wordpress">Custom post types</a>
                   </li>
                   <li>
-                    <a href="#post-meta" class="toc-h2 toc-link" data-title="Wordpress">Post Meta</a>
+                    <a href="#metadata-api" class="toc-h2 toc-link" data-title="Wordpress">Metadata API</a>
+                  </li>
+                  <li>
+                    <a href="#hidden-custom-fields" class="toc-h2 toc-link" data-title="Wordpress">Hidden Custom Fields</a>
                   </li>
                   <li>
                     <a href="#meta-boxes" class="toc-h2 toc-link" data-title="Wordpress">Meta Boxes</a>
@@ -901,9 +904,23 @@ wp_register_script(
 <aside class="warning">
 Для того щоб уникнути конфліктів між плагінами ідентифікатор повинен бути унікальним
 </aside>
-<h2 id='post-meta'>Post Meta</h2>
-<p>Метадата додає можливість додати кастомні дані для поста. </p>
-<h3 id=''>Функції для роботи з метаданими.</h3><h3 id='add_post_meta'>add_post_meta()</h3>
+<h2 id='metadata-api'>Metadata API</h2>
+<p>Metadata API - це швидкий спосіб маніпуляції метаданими об&#39;єктів Wordpress
+такий як post, comment, user, term.</p>
+
+<p>Для конкретних обєктів існують функції, 
+які дають можливість працювати з мета даними:</p>
+<h3 id=''>Функції для роботи з метаданими.</h3>
+<p><code>get_post_meta( int $post_id, string $key = &#39;&#39;, bool $single = false )</code></p>
+
+<p><strong><em>Params:</em></strong><br>
+<code>int $post_id</code> - id поста<br>
+<code>string $meta_key</code> - ключ
+<code>bool $single = false</code> - повернути одне значення</p>
+
+<p><strong><em>Return:</em></strong> 
+<code>mixed</code> - масив або значення, в залежності від значення $single</p>
+<h3 id='add_post_meta'>add_post_meta()</h3>
 <p>Додати поле до поста</p>
 
 <p><code>add_post_meta($post_id, $meta_key, $meta_value, $unique)</code></p>
@@ -977,6 +994,10 @@ array - масив значень для поля</p>
 
 <p><strong><em>Return:</em></strong><br>
 array - масив ключів</p>
+<h2 id='hidden-custom-fields'>Hidden Custom Fields</h2>
+<p>За замовчуванням метадані відображаються на сторінці поста, їх можна додавати змінювати та видаляти, 
+для того щоб створити приховані мета дані, для самостійної обробки 
+цих даних ключ повинен починатися з &#39;_&#39; напр &#39;_color&#39;</p>
 <h2 id='meta-boxes'>Meta Boxes</h2>
 <p>Мета бокси це окремі контейнери з яких складається сторінка (скрін).
 Плагіни можуть розширювати сторінку редагування додаючи свої мета бокси. 
