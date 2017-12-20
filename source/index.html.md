@@ -12,6 +12,7 @@ includes:
   - wordpress
   - wordpress/create_plugin
   - wordpress/admin_menu
+  - wordpress/assets
   - wordpress/security
   - wordpress/internationalization
   - wordpress/hooks
