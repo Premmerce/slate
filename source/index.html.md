@@ -26,6 +26,7 @@ includes:
   - wordpress/users
   - wordpress/roles
   - wordpress/widgets
+  - wordpress/wp_query
   - wordpress/wpdb
   - woocommerce
   - premmerce
